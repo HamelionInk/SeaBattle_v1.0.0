@@ -5,8 +5,11 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
-    int x = 35; //77
-    int y = 42; //84
+    private int x = 35; //77
+    private int y = 42; //84
+    private int index = 0;
+
+    ArrayList<BattleField> battleFields = new ArrayList<>();
 
     private ImageIcon gamePanelFont = new ImageIcon("img/GamePanelFont.jpg");
     private ImageIcon field = new ImageIcon("img/test2.png");
@@ -31,12 +34,13 @@ public class GamePanel extends JPanel {
                 add(new BattleField("img/Button/ButtonExitRollover.png",
                     "img/Button/ButtonExitPressed.png",
                     "img/just.png",
-                    x , y));
+                    x , y, index++));
             }
         }
 
         y = 522;
         for(int countX = 0; countX < 9; countX++) {
+            String countIndex = "0";
             y = y + 42;
             x = 35;
             for(int countY = 0; countY < 9; countY++) {
@@ -44,7 +48,8 @@ public class GamePanel extends JPanel {
                 add(new BattleField("img/Button/ButtonExitRollover.png",
                         "img/Button/ButtonExitPressed.png",
                         "img/just.png",
-                        x , y));
+                        x , y, index++));
+
             }
         }
 
