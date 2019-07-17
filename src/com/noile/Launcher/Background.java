@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Background extends JPanel {
 
-    private ImageIcon background = new ImageIcon("img/mainFrame.jpg");
+    private ImageIcon background = new ImageIcon("img/GamePanelFont.jpg");
 
     private JButton startButton = new MenuButton(
             "img/Button/StartButtonRollover.png",
@@ -40,6 +40,14 @@ public class Background extends JPanel {
 
         startButton.addActionListener(actionEvent -> {
             GamePanelEnum.GAME_PANEL.show();
+        });
+
+        optionsButton.addActionListener(actionEvent -> {
+            GamePanelEnum.OPTIONS_PANEL.show();
+        });
+
+        recordsButton.addActionListener(actionEvent -> {
+            GamePanelEnum.RECORDS_PANEL.show();
         });
     }
 

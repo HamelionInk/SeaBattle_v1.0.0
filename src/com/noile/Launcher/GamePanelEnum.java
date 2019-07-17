@@ -32,6 +32,36 @@ public enum GamePanelEnum {
         void show() {
             setVisible(this);
         }
+    },
+
+    OPTIONS_PANEL {
+
+        private OptionsPanel optionsPanel = new OptionsPanel();
+
+        @Override
+        JPanel getPanel() {
+            return optionsPanel;
+        }
+
+        @Override
+        void show() {
+            setVisible(this);
+        }
+    },
+
+    RECORDS_PANEL {
+
+        private RecordsPanel recordsPanel = new RecordsPanel();
+
+        @Override
+        JPanel getPanel() {
+            return recordsPanel;
+        }
+
+        @Override
+        void show() {
+            setVisible(this);
+        }
     };
 
     abstract JPanel getPanel();
