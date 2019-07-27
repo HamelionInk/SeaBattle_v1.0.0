@@ -1,4 +1,4 @@
-package com.noile.Launcher;
+package com.noile.SeaBattle.View;
 
 import javax.swing.*;
 
@@ -13,6 +13,5 @@ public class MenuButton extends JButton {
         setRolloverIcon(new ImageIcon(imageRolloverPath));
         setPressedIcon(new ImageIcon(imagePressedPath));
         setIcon(new ImageIcon(imageIconPath));
-
     }
 }

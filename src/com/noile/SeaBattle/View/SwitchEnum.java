@@ -1,64 +1,52 @@
-package com.noile.Launcher;
+package com.noile.SeaBattle.View;
 
 import javax.swing.*;
 
-public enum GamePanelEnum {
+public enum SwitchEnum {
 
-    BACKGROUND {
+    MENU_PANEL {
+        private MenuPanel menuPanel = new MenuPanel();
 
-        private Background background = new Background();
-
-        @Override
         JPanel getPanel() {
-            return background;
+            return menuPanel;
         }
 
-        @Override
         void show() {
             setVisible(this);
         }
     },
 
     GAME_PANEL {
-
         private GamePanel gamePanel = new GamePanel();
 
-        @Override
         JPanel getPanel() {
             return gamePanel;
         }
 
-        @Override
         void show() {
             setVisible(this);
         }
     },
 
     OPTIONS_PANEL {
-
         private OptionsPanel optionsPanel = new OptionsPanel();
 
-        @Override
         JPanel getPanel() {
             return optionsPanel;
         }
 
-        @Override
         void show() {
             setVisible(this);
         }
     },
 
     RECORDS_PANEL {
-
         private RecordsPanel recordsPanel = new RecordsPanel();
 
-        @Override
         JPanel getPanel() {
             return recordsPanel;
         }
 
-        @Override
         void show() {
             setVisible(this);
         }
@@ -68,11 +56,9 @@ public enum GamePanelEnum {
 
     abstract void show();
 
-    private static void setVisible(GamePanelEnum gamePanelEnum) {
-        for (GamePanelEnum value : GamePanelEnum.values()) {
-            value.getPanel().setVisible(value == gamePanelEnum);
+    private static void setVisible(SwitchEnum switchEnum) {
+        for (SwitchEnum value : SwitchEnum.values()) {
+            value.getPanel().setVisible(value == switchEnum);
         }
-
     }
-
 }
