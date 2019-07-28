@@ -10,11 +10,13 @@ import java.util.ArrayList;
 public class GamePanel extends JPanel {
 
     ArrayList<CellPane> fieldPanelList = new ArrayList<>();
+    ArrayList<CellPane> fieldPanelListEnemy = new ArrayList<>();
 
     TakeShip takeShip = new TakeShip(fieldPanelList);
+    TakeShip takeShipEnemy = new TakeShip(fieldPanelListEnemy);
 
     FieldPanel fieldPanel = new FieldPanel(takeShip, fieldPanelList);
-    FieldPanel fieldPanelEnemy = new FieldPanel(takeShip, fieldPanelList);
+    FieldPanel fieldPanelEnemy = new FieldPanel(takeShipEnemy, fieldPanelListEnemy);
 
     BoatView testBoatView = new BoatView(takeShip);
 
