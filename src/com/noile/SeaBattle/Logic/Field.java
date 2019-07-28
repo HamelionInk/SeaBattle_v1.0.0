@@ -60,4 +60,9 @@ public class Field {
         }
         System.out.println("----------------------------------------------------");
     }
+
+    public void Entered() {
+
+
+    }
 }

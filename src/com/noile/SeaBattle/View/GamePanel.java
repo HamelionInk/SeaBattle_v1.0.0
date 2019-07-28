@@ -1,6 +1,7 @@
 package com.noile.SeaBattle.View;
 
 import com.noile.SeaBattle.Logic.TakeShip;
+import com.noile.SeaBattle.View.ShipsVeiw.BoatView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class GamePanel extends JPanel {
     FieldPanel fieldPanel = new FieldPanel(takeShip, fieldPanelList);
     FieldPanel fieldPanelEnemy = new FieldPanel(takeShip, fieldPanelList);
 
-    ShipsView testBoat = new ShipsView(takeShip);
+    BoatView testBoatView = new BoatView(takeShip);
 
     public GamePanel() {
         setLayout(null);
@@ -23,16 +24,16 @@ public class GamePanel extends JPanel {
         fieldPanel.setBounds(50,50,250,250);
         fieldPanelEnemy.setBounds(50,350,250,250);
 
-        testBoat.setBounds(500,500, 100,50);
+        testBoatView.setBounds(500,500, 100,50);
 
         add(fieldPanel);
         add(fieldPanelEnemy);
-        add(testBoat);
+        add(testBoatView);
     }
 
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(new ImageIcon("img/GamePanelFont.jpg").getImage(),0,0,null);
+        g2d.drawImage(new ImageIcon("img/Font.jpg").getImage(),0,0,null);
     }
 }

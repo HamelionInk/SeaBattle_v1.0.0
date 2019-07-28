@@ -6,7 +6,7 @@ public class Boat extends Ships {
     public Boat() {
         setHealPoints(1);
         setAmount(amountBoat - 1);
-        setName("Boat");
+        setName("BoatView");
     }
 
 }

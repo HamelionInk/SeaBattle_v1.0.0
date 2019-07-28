@@ -14,7 +14,7 @@ public class FieldPanel extends JPanel {
 
     private int index;
 
-    public FieldPanel(TakeShip takeShip, ArrayList<CellPane> fieldPanel) {
+    public FieldPanel(TakeShip takeShip, ArrayList<CellPane> fieldPanelList) {
             index = -1;
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -26,8 +26,8 @@ public class FieldPanel extends JPanel {
                     gbc.gridx = col;
                     gbc.gridy = row;
 
-                    CellPane cellPane = new CellPane(index += 1, takeShip);
-                    fieldPanel.add(cellPane);
+                    CellPane cellPane = new CellPane(index += 1, takeShip, fieldPanelList);
+                    fieldPanelList.add(cellPane);
 
                     Border border = null;
                     if (row < 9) {
@@ -45,7 +45,6 @@ public class FieldPanel extends JPanel {
                     }
                     cellPane.setBorder(border);
                     add(cellPane, gbc);
-
                 }
             }
         }

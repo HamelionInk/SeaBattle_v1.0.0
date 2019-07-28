@@ -6,49 +6,76 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
-    public class CellPane extends JPanel {
+public class CellPane extends JPanel {
 
         private Color defaultBackground;
-        private int aIndex;
 
-        public CellPane(int index, TakeShip takeShip) {
-            this.aIndex = index;
+        public CellPane(int index, TakeShip takeShip, ArrayList<CellPane> fieldPanelList) {
+
+            defaultBackground = getBackground();
 
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (takeShip.getStatus() == true) {
-                        takeShip.setNumberField(aIndex);
+                        takeShip.setNumberField(index);
                         takeShip.takeShip();
                         takeShip.setClassShip(null);
                         takeShip.setStatus(false);
                         defaultBackground = getBackground();
-                    } else {
-                        setBackground(defaultBackground);
                     }
                 }
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    defaultBackground = getBackground();
-                    setBackground(Color.BLUE);
+                    if (takeShip.getStatus()) {
+                        fieldPanelList.get(index).defaultBackground = getBackground();
+                        fieldPanelList.get(index).setBackground(Color.ORANGE);
+                        if (takeShip.getSize() == 2 || takeShip.getSize() == 3 || takeShip.getSize() == 4) {
+                            fieldPanelList.get(index + 1).defaultBackground = getBackground();
+                            fieldPanelList.get(index + 1).setBackground(Color.ORANGE);
+                            if (takeShip.getSize() == 3 || takeShip.getSize() == 4) {
+                                fieldPanelList.get(index + 2).defaultBackground = getBackground();
+                                fieldPanelList.get(index + 2).setBackground(Color.ORANGE);
+                                if (takeShip.getSize() == 4) {
+                                    fieldPanelList.get(index + 3).defaultBackground = getBackground();
+                                    fieldPanelList.get(index + 3).setBackground(Color.ORANGE);
+                                }
+                            }
+                        }
+                    } else {
+                        fieldPanelList.get(index).defaultBackground = getBackground();
+                        fieldPanelList.get(index).setBackground(Color.WHITE);
+                    }
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    setBackground(defaultBackground);
+
+                    if (takeShip.getStatus()) {
+                        fieldPanelList.get(index).setBackground(defaultBackground);
+                        if (takeShip.getSize() == 2 || takeShip.getSize() == 3 || takeShip.getSize() == 4) {
+                            fieldPanelList.get(index + 1).setBackground(defaultBackground);
+                            if (takeShip.getSize() == 3 || takeShip.getSize() == 4) {
+                                fieldPanelList.get(index + 2).setBackground(defaultBackground);
+                                if (takeShip.getSize() == 4) {
+                                    fieldPanelList.get(index + 3).setBackground(defaultBackground);
+                                }
+                            }
+                        }
+                    } else {
+                        fieldPanelList.get(index).setBackground(defaultBackground);
+                    }
                 }
+
             });
         }
 
-        @Override
+    @Override
         public Dimension getPreferredSize() {
             return new Dimension(25, 25);
-        }
-
-        public int getaIndex() {
-            return aIndex;
         }
     }
 

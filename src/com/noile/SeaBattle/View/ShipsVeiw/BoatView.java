@@ -1,4 +1,4 @@
-package com.noile.SeaBattle.View;
+package com.noile.SeaBattle.View.ShipsVeiw;
 
 import com.noile.SeaBattle.Logic.Ships.Boat;
 import com.noile.SeaBattle.Logic.TakeShip;
@@ -7,9 +7,9 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ShipsView extends JButton {
+public class BoatView extends JButton {
 
-    public ShipsView(TakeShip takeShip) {
+    public BoatView(TakeShip takeShip) {
         super("TestShip");
 
         addMouseListener(new MouseAdapter() {
