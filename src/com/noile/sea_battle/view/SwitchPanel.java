@@ -1,4 +1,4 @@
-package com.noile.SeaBattle.View;
+package com.noile.sea_battle.view;
 
 import javax.swing.*;
 import java.awt.*;

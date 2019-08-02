@@ -1,4 +1,6 @@
-package com.noile.SeaBattle.View;
+package com.noile.sea_battle.view;
+
+import com.noile.sea_battle.view.button.MenuButton;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

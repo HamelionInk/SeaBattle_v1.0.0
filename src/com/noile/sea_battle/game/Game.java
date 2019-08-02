@@ -1,6 +1,6 @@
-package com.noile.SeaBattle.Game;
+package com.noile.sea_battle.game;
 
-import com.noile.SeaBattle.View.MainFrame;
+import com.noile.sea_battle.view.MainFrame;
 
 public class Game {
 

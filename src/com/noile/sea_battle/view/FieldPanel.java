@@ -1,7 +1,7 @@
-package com.noile.SeaBattle.View;
+package com.noile.sea_battle.view;
 
-import com.noile.SeaBattle.Logic.TakeShip;
 
+import com.noile.sea_battle.logic.PutShip;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,11 +11,9 @@ import javax.swing.border.MatteBorder;
 
 public class FieldPanel extends JPanel {
 
+    int position = -1;
 
-    private int index;
-
-    public FieldPanel(TakeShip takeShip, ArrayList<CellPane> fieldPanelList) {
-            index = -1;
+    public FieldPanel(ArrayList<CellPane> fieldPanelList, PutShip test) {
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -26,27 +24,31 @@ public class FieldPanel extends JPanel {
                     gbc.gridx = col;
                     gbc.gridy = row;
 
-                    CellPane cellPane = new CellPane(index += 1, takeShip, fieldPanelList);
+                    CellPane cellPane = new CellPane(test, position = position + 1);
                     fieldPanelList.add(cellPane);
 
                     Border border = null;
                     if (row < 9) {
                         if (col < 9) {
-                            border = new MatteBorder(1, 1, 0, 0, Color.GRAY);
+                            border = new MatteBorder(1, 1, 0, 0, Color.black);
                         } else {
-                            border = new MatteBorder(1, 1, 0, 1, Color.GRAY);
+                            border = new MatteBorder(1, 1, 0, 1, Color.black);
                         }
                     } else {
                         if (col < 9) {
-                            border = new MatteBorder(1, 1, 1, 0, Color.GRAY);
+                            border = new MatteBorder(1, 1, 1, 0, Color.black);
                         } else {
-                            border = new MatteBorder(1, 1, 1, 1, Color.GRAY);
+                            border = new MatteBorder(1, 1, 1, 1, Color.black);
                         }
                     }
                     cellPane.setBorder(border);
                     add(cellPane, gbc);
                 }
             }
+        }
+
+        public void putSship() {
+        
         }
     }
 
