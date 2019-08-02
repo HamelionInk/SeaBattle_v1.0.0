@@ -31,7 +31,6 @@ public class CellPane extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 putShip.setPosition(getPosition());
-                System.out.println(getPosition());
                 putShip.putShip();
             }
 
