@@ -95,20 +95,19 @@ public class PutShip {
             if (position == 99) {
                 checkPosition = false;
             } else {
-                fieldPanelList.get(position + 1).getDefaultBackground();
-                if ((position + 1 == 10 | position + 1 == 20 | position + 1 == 30 | position + 1 == 40 | position + 1 == 50 || position + 1 == 60 |
-                        position + 1 == 70 | position + 1 == 80 | position + 1 == 90 | position + 1 == 99) & (classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4)) {
+                if ((position + 1 == 10 | position + 1 == 20 | position + 1 == 30 | position + 1 == 40 | position + 1 == 50 | position + 1 == 60 |
+                        position + 1 == 70 | position + 1 == 80 | position + 1 == 90 | position + 1 > 99) & (classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4)) {
                     checkPosition = false;
                 } else {
-                    fieldPanelList.get(position + 2).getDefaultBackground();
+                    fieldPanelList.get(position + 1).getDefaultBackground();
                     if ((position + 2 == 10 | position + 2 == 20 | position + 2 == 30 | position + 2 == 40 | position + 2 == 50 | position + 2 == 60 |
-                            position + 2 == 70 | position + 2 == 80 | position + 2 == 90 | position + 2 == 99) & (classShips.getSize() == 3 | classShips.getSize() == 4)) {
+                            position + 2 == 70 | position + 2 == 80 | position + 2 == 90 | position + 2 > 99) & (classShips.getSize() == 3 | classShips.getSize() == 4)) {
                         checkPosition = false;
                     } else {
-                        fieldPanelList.get(position + 3).getDefaultBackground();
                         if ((position + 3 == 10 | position + 3 == 20 | position + 3 == 30 | position + 3 == 40 | position + 3 == 50 | position + 3 == 60 |
-                                position + 3 == 70 | position + 3 == 80 | position + 3 == 90) & (classShips.getSize() == 4)) {
+                                position + 3 == 70 | position + 3 == 80 | position + 3 == 90 | position + 3 > 99) & (classShips.getSize() == 4)) {
                             checkPosition = false;
+                            fieldPanelList.get(position + 2).getDefaultBackground();
                         }
                     }
                 }
@@ -123,16 +122,22 @@ public class PutShip {
                     position == 97 | position == 98 | position == 99) & (classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4)) {
                 checkPosition = false;
             } else {
-                if ((position + 10 == 90 | position + 10 == 91 | position + 10 == 92 | position + 10 == 93 | position + 10 == 94 | position + 10 == 95 | position + 10 == 96 |
-                        position + 10 == 97 | position + 10 == 98 | position + 10 == 99) & (classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4)) {
-                    checkPosition = false;
-                    fieldPanelList.get(position + 10).getDefaultBackground();
+                if (classShips.getSize() == 2) {
                 } else {
-                    if ((position + 20 == 90 | position + 20 == 91 | position + 20 == 92 | position + 20 == 93 | position + 20 == 94 | position + 20 == 95 | position + 20 == 96 |
-                            position + 20 == 97 | position + 20 == 98 | position + 20 == 99) & (classShips.getSize() == 3 | classShips.getSize() == 4)) {
+                    if ((position + 10 == 90 | position + 10 == 91 | position + 10 == 92 | position + 10 == 93 | position + 10 == 94 | position + 10 == 95 | position + 10 == 96 |
+                            position + 10 == 97 | position + 10 == 98 | position + 10 == 99) & (classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4)) {
                         checkPosition = false;
                         fieldPanelList.get(position + 10).getDefaultBackground();
-                        fieldPanelList.get(position + 20).getDefaultBackground();
+                    } else {
+                        if (classShips.getSize() == 3) {
+                        } else {
+                            if ((position + 20 == 90 | position + 20 == 91 | position + 20 == 92 | position + 20 == 93 | position + 20 == 94 | position + 20 == 95 | position + 20 == 96 |
+                                    position + 20 == 97 | position + 20 == 98 | position + 20 == 99) & (classShips.getSize() == 3 | classShips.getSize() == 4)) {
+                                checkPosition = false;
+                                fieldPanelList.get(position + 10).getDefaultBackground();
+                                fieldPanelList.get(position + 20).getDefaultBackground();
+                            }
+                        }
                     }
                 }
             }
