@@ -40,19 +40,19 @@ public class PutShip {
     public void putShipAxisX() {
         checkClassShipX();
         checkPositionAxisX();
-        if ( (classShips.getSize() == 1 || classShips.getSize() == 2 || classShips.getSize() == 3 || classShips.getSize() == 4) & (checkPosition & checkClassShip)) {
+        if ((classShips.getSize() == 1 || classShips.getSize() == 2 || classShips.getSize() == 3 || classShips.getSize() == 4) & (checkPosition & checkClassShip)) {
             fieldPanelList.get(position).setCellClassShip();
             fieldPanelList.get(position).reloadStateCell();
             fieldPanelList.get(position).setShipViewIcon();
-            if( classShips.getSize() == 2 || classShips.getSize() == 3 || classShips.getSize() == 4) {
+            if (classShips.getSize() == 2 || classShips.getSize() == 3 || classShips.getSize() == 4) {
                 fieldPanelList.get(position + 1).setCellClassShip();
                 fieldPanelList.get(position + 1).reloadStateCell();
                 fieldPanelList.get(position + 1).setShipViewIcon();
-                if ( classShips.getSize() == 3 || classShips.getSize() == 4) {
+                if (classShips.getSize() == 3 || classShips.getSize() == 4) {
                     fieldPanelList.get(position + 2).setCellClassShip();
                     fieldPanelList.get(position + 2).reloadStateCell();
                     fieldPanelList.get(position + 2).setShipViewIcon();
-                    if( classShips.getSize() == 4) {
+                    if (classShips.getSize() == 4) {
                         fieldPanelList.get(position + 3).setCellClassShip();
                         fieldPanelList.get(position + 3).reloadStateCell();
                         fieldPanelList.get(position + 3).setShipViewIcon();
@@ -68,19 +68,19 @@ public class PutShip {
     public void putShipAxisY() {
         checkClassShipY();
         checkPositionAxisY();
-        if ( (classShips.getSize() == 1 || classShips.getSize() == 2 || classShips.getSize() == 3 || classShips.getSize() == 4) & (checkPosition & checkClassShip)) {
+        if ((classShips.getSize() == 1 || classShips.getSize() == 2 || classShips.getSize() == 3 || classShips.getSize() == 4) & (checkPosition & checkClassShip)) {
             fieldPanelList.get(position).setCellClassShip();
             fieldPanelList.get(position).reloadStateCell();
             fieldPanelList.get(position).setShipViewIcon();
-            if( classShips.getSize() == 2 || classShips.getSize() == 3 || classShips.getSize() == 4) {
+            if (classShips.getSize() == 2 || classShips.getSize() == 3 || classShips.getSize() == 4) {
                 fieldPanelList.get(position + 10).setCellClassShip();
                 fieldPanelList.get(position + 10).reloadStateCell();
                 fieldPanelList.get(position + 10).setShipViewIcon();
-                if ( classShips.getSize() == 3 || classShips.getSize() == 4) {
+                if (classShips.getSize() == 3 || classShips.getSize() == 4) {
                     fieldPanelList.get(position + 20).setCellClassShip();
                     fieldPanelList.get(position + 20).reloadStateCell();
                     fieldPanelList.get(position + 20).setShipViewIcon();
-                    if ( classShips.getSize() == 4) {
+                    if (classShips.getSize() == 4) {
                         fieldPanelList.get(position + 30).setCellClassShip();
                         fieldPanelList.get(position + 30).reloadStateCell();
                         fieldPanelList.get(position + 30).setShipViewIcon();
@@ -130,32 +130,32 @@ public class PutShip {
 
     public void checkClassShipY() {
         checkClassShip = true;
-            if (position <= 99 && fieldPanelList.get(position).getCellClassShip() != null) {
+        if (position <= 99 && fieldPanelList.get(position).getCellClassShip() != null) {
+            checkClassShip = false;
+            System.out.println("Test 2");
+        } else {
+            if (position + 10 < 99 && fieldPanelList.get(position + 10).getCellClassShip() != null) {
                 checkClassShip = false;
-                System.out.println("Test 2");
+                fieldPanelList.get(position + 10).getDefaultBackground();
+                fieldPanelList.get(position + 20).getDefaultBackground();
+                fieldPanelList.get(position + 30).getDefaultBackground();
             } else {
-                if (position + 10 < 99 && fieldPanelList.get(position + 10).getCellClassShip() != null ) {
+                if (position + 20 < 99 && fieldPanelList.get(position + 20).getCellClassShip() != null) {
                     checkClassShip = false;
                     fieldPanelList.get(position + 10).getDefaultBackground();
                     fieldPanelList.get(position + 20).getDefaultBackground();
                     fieldPanelList.get(position + 30).getDefaultBackground();
                 } else {
-                    if (position + 20 < 99 && fieldPanelList.get(position + 20).getCellClassShip() != null) {
+                    if (position + 30 < 99 && fieldPanelList.get(position + 30).getCellClassShip() != null) {
                         checkClassShip = false;
                         fieldPanelList.get(position + 10).getDefaultBackground();
                         fieldPanelList.get(position + 20).getDefaultBackground();
                         fieldPanelList.get(position + 30).getDefaultBackground();
-                    } else {
-                        if (position + 30 < 99 && fieldPanelList.get(position + 30).getCellClassShip() != null) {
-                            checkClassShip = false;
-                            fieldPanelList.get(position + 10).getDefaultBackground();
-                            fieldPanelList.get(position + 20).getDefaultBackground();
-                            fieldPanelList.get(position + 30).getDefaultBackground();
-                        }
                     }
                 }
             }
         }
+    }
 
     public void checkPositionAxisX() {
         if (classShips.getSize() == 1) {
@@ -214,24 +214,25 @@ public class PutShip {
 
 
     public void entered() {
+        checkColor();
         if (axis == 1) {
             if (classShips != null) {
                 if ((classShips.getSize() == 1 | classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
                         position < fieldPanelList.size()) {
                     fieldPanelList.get(position).setDefaultBackground();
-                    fieldPanelList.get(position).setBackground(Color.GREEN);
+                    fieldPanelList.get(position).setBackground(fieldPanelList.get(position).getCellColor());
                     if ((classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
                             position + 10 < fieldPanelList.size()) {
                         fieldPanelList.get(position + 10).setDefaultBackground();
-                        fieldPanelList.get(position + 10).setBackground(Color.GREEN);
+                        fieldPanelList.get(position + 10).setBackground(fieldPanelList.get(position + 10).getCellColor());
                         if ((classShips.getSize() == 3 | classShips.getSize() == 4) &
                                 position + 20 < fieldPanelList.size()) {
                             fieldPanelList.get(position + 20).setDefaultBackground();
-                            fieldPanelList.get(position + 20).setBackground(Color.GREEN);
+                            fieldPanelList.get(position + 20).setBackground(fieldPanelList.get(position + 20).getCellColor());
                             if (classShips.getSize() == 4 &
                                     position + 30 < fieldPanelList.size()) {
                                 fieldPanelList.get(position + 30).setDefaultBackground();
-                                fieldPanelList.get(position + 30).setBackground(Color.GREEN);
+                                fieldPanelList.get(position + 30).setBackground(fieldPanelList.get(position + 30).getCellColor());
                             }
                         }
                     }
@@ -248,37 +249,37 @@ public class PutShip {
                     if (position == 9 || position == 19 || position == 29 || position == 39 || position == 49 || position == 59 ||
                             position == 69 || position == 79 || position == 89 || position == 99) {
                         fieldPanelList.get(position).setDefaultBackground();
-                        fieldPanelList.get(position).setBackground(Color.GREEN);
+                        fieldPanelList.get(position).setBackground(fieldPanelList.get(position).getCellColor());
                     } else {
                         fieldPanelList.get(position).setDefaultBackground();
-                        fieldPanelList.get(position).setBackground(Color.GREEN);
+                        fieldPanelList.get(position).setBackground(fieldPanelList.get(position).getCellColor());
                         if ((classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
                                 position + 1 < fieldPanelList.size()) {
                             if (position + 1 == 9 || position + 1 == 19 || position + 1 == 29 || position + 1 == 39 || position + 1 == 49 || position + 1 == 59 ||
                                     position + 1 == 69 || position + 1 == 79 || position + 1 == 89 || position + 1 == 99) {
                                 fieldPanelList.get(position + 1).setDefaultBackground();
-                                fieldPanelList.get(position + 1).setBackground(Color.GREEN);
+                                fieldPanelList.get(position + 1).setBackground(fieldPanelList.get(position + 1).getCellColor());
                             } else {
                                 fieldPanelList.get(position + 1).setDefaultBackground();
-                                fieldPanelList.get(position + 1).setBackground(Color.GREEN);
+                                fieldPanelList.get(position + 1).setBackground(fieldPanelList.get(position + 1).getCellColor());
                                 if ((classShips.getSize() == 3 | classShips.getSize() == 4) &
                                         position + 2 < fieldPanelList.size()) {
                                     if (position + 2 == 9 || position + 2 == 19 || position + 2 == 29 || position + 2 == 39 || position + 2 == 49 || position + 2 == 59 ||
                                             position + 2 == 69 || position + 2 == 79 || position + 2 == 89 || position + 2 == 99) {
                                         fieldPanelList.get(position + 2).setDefaultBackground();
-                                        fieldPanelList.get(position + 2).setBackground(Color.GREEN);
+                                        fieldPanelList.get(position + 2).setBackground(fieldPanelList.get(position + 2).getCellColor());
                                     } else {
                                         fieldPanelList.get(position + 2).setDefaultBackground();
-                                        fieldPanelList.get(position + 2).setBackground(Color.GREEN);
+                                        fieldPanelList.get(position + 2).setBackground(fieldPanelList.get(position + 2).getCellColor());
                                         if (classShips.getSize() == 4 &
                                                 position + 3 < fieldPanelList.size()) {
                                             if (position + 3 == 9 || position + 3 == 19 || position + 3 == 29 || position + 3 == 39 || position + 3 == 49 || position + 3 == 59 ||
                                                     position + 3 == 69 || position + 3 == 79 || position + 3 == 89 || position + 3 == 99) {
                                                 fieldPanelList.get(position + 3).setDefaultBackground();
-                                                fieldPanelList.get(position + 3).setBackground(Color.GREEN);
+                                                fieldPanelList.get(position + 3).setBackground(fieldPanelList.get(position + 1).getCellColor());
                                             } else {
                                                 fieldPanelList.get(position + 3).setDefaultBackground();
-                                                fieldPanelList.get(position + 3).setBackground(Color.GREEN);
+                                                fieldPanelList.get(position + 3).setBackground(fieldPanelList.get(position + 1).getCellColor());
                                             }
                                         }
                                     }
@@ -295,48 +296,138 @@ public class PutShip {
     }
 
     public void exited() {
-        if( axis == 1) {
+        if (axis == 1) {
             if (classShips != null) {
-            if ( (classShips.getSize() == 1 | classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
-                    position < fieldPanelList.size()) {
-                fieldPanelList.get(position).getDefaultBackground();
-                if ((classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
-                        position + 10 < fieldPanelList.size()) {
-                    fieldPanelList.get(position + 10).getDefaultBackground();
-                    if ((classShips.getSize() == 3 | classShips.getSize() == 4) &
-                            position + 20 < fieldPanelList.size()) {
-                        fieldPanelList.get(position + 20).getDefaultBackground();
-                        if (classShips.getSize() == 4 &
-                                position + 30 < fieldPanelList.size()) {
-                            fieldPanelList.get(position + 30).getDefaultBackground();
-                        }
-                    }
-                }
-            }
-        } else {
-            fieldPanelList.get(position).getDefaultBackground();
-        }
-        }
-        if( axis == 0) {
-            if (classShips != null) {
-                if ( (classShips.getSize() == 1 | classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
+                if ((classShips.getSize() == 1 | classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
                         position < fieldPanelList.size()) {
                     fieldPanelList.get(position).getDefaultBackground();
-                    if ( (classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
-                            position + 1 < fieldPanelList.size()) {
-                        fieldPanelList.get(position + 1).getDefaultBackground();
-                        if ( (classShips.getSize() == 3 | classShips.getSize() == 4) &
-                                position + 2 < fieldPanelList.size()) {
-                            fieldPanelList.get(position + 2).getDefaultBackground();
+                    fieldPanelList.get(position).setColorGreen();
+                    if ((classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
+                            position + 10 < fieldPanelList.size()) {
+                        fieldPanelList.get(position + 10).getDefaultBackground();
+                        fieldPanelList.get(position + 10).setColorGreen();
+                        if ((classShips.getSize() == 3 | classShips.getSize() == 4) &
+                                position + 20 < fieldPanelList.size()) {
+                            fieldPanelList.get(position + 20).getDefaultBackground();
+                            fieldPanelList.get(position + 20).setColorGreen();
                             if (classShips.getSize() == 4 &
-                                    position + 3 < fieldPanelList.size()) {
-                                fieldPanelList.get(position + 3).getDefaultBackground();
+                                    position + 30 < fieldPanelList.size()) {
+                                fieldPanelList.get(position + 30).getDefaultBackground();
+                                fieldPanelList.get(position + 30).setColorGreen();
                             }
                         }
                     }
                 }
             } else {
                 fieldPanelList.get(position).getDefaultBackground();
+            }
+        }
+        if (axis == 0) {
+            if (classShips != null) {
+                if ((classShips.getSize() == 1 | classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
+                        position < fieldPanelList.size()) {
+                    fieldPanelList.get(position).getDefaultBackground();
+                    fieldPanelList.get(position).setColorGreen();
+                    if ((classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
+                            position + 1 < fieldPanelList.size()) {
+                        fieldPanelList.get(position + 1).getDefaultBackground();
+                        fieldPanelList.get(position + 1).setColorGreen();
+                        if ((classShips.getSize() == 3 | classShips.getSize() == 4) &
+                                position + 2 < fieldPanelList.size()) {
+                            fieldPanelList.get(position + 2).getDefaultBackground();
+                            fieldPanelList.get(position + 2).setColorGreen();
+                            if (classShips.getSize() == 4 &
+                                    position + 3 < fieldPanelList.size()) {
+                                fieldPanelList.get(position + 3).getDefaultBackground();
+                                fieldPanelList.get(position + 3).setColorGreen();
+
+                            }
+                        }
+                    }
+                }
+            } else {
+                fieldPanelList.get(position).getDefaultBackground();
+            }
+        }
+    }
+
+    public void checkColor() {
+        if (axis == 1) {
+            if (classShips != null) {
+                if ((classShips.getSize() == 1 | classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
+                        position > fieldPanelList.size()) {
+                    fieldPanelList.get(position).setColorRed();
+                } else {
+                    if ((classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
+                            position + 10 > fieldPanelList.size()) {
+                        fieldPanelList.get(position).setColorRed();
+                    } else {
+                        if ((classShips.getSize() == 3 | classShips.getSize() == 4) &
+                                position + 20 > fieldPanelList.size()) {
+                            fieldPanelList.get(position).setColorRed();
+                            fieldPanelList.get(position + 10).setColorRed();
+                        } else {
+                            if (classShips.getSize() == 4 &
+                                    position + 30 > fieldPanelList.size()) {
+                                fieldPanelList.get(position).setColorRed();
+                                fieldPanelList.get(position + 10).setColorRed();
+                                fieldPanelList.get(position + 20).setColorRed();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        if (axis == 0) {
+            if ((position == 99 || position + 1 == 99 || position + 2 == 99) & classShips.getSize() > 1)  {
+                    if (position + 1 > 99) {
+                        fieldPanelList.get(position).setColorRed();
+                    } else {
+                        if (position + 2 > 99) {
+                            fieldPanelList.get(position).setColorRed();
+                            fieldPanelList.get(position + 1).setColorRed();
+                        } else {
+                            if (position + 3 > 99) {
+                                fieldPanelList.get(position).setColorRed();
+                                fieldPanelList.get(position + 1).setColorRed();
+                                fieldPanelList.get(position + 2).setColorRed();
+
+                            }
+                        }
+                    }
+            } else {
+                if (classShips != null) {
+                    if ((classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
+                            position + 1 < fieldPanelList.size()) {
+                        if ((position + 1 == 10 || position + 1 == 20 || position + 1 == 30 || position + 1 == 40 || position + 1 == 50 || position + 1 == 60 ||
+                                position + 1 == 70 || position + 1 == 80 || position + 1 == 90) | position + 1 > 99) {
+                            fieldPanelList.get(position).setColorRed();
+                        } else {
+                            if ((classShips.getSize() == 3 | classShips.getSize() == 4) |
+                                    position + 2 < fieldPanelList.size()) {
+                                if ((position + 2 == 10 || position + 2 == 20 || position + 2 == 30 || position + 2 == 40 || position + 2 == 50 || position + 2 == 60 ||
+                                        position + 2 == 70 || position + 2 == 80 || position + 2 == 90) | position + 2 > 99) {
+                                    fieldPanelList.get(position).setColorRed();
+                                    fieldPanelList.get(position + 1).setColorRed();
+                                    fieldPanelList.get(position + 2).setColorRed();
+                                } else {
+                                    if (classShips.getSize() == 4 &
+                                            position + 3 < fieldPanelList.size()) {
+                                        if ((position + 3 == 10 || position + 3 == 20 || position + 3 == 30 || position + 3 == 40 || position + 3 == 50 || position + 3 == 60 ||
+                                                position + 3 == 70 || position + 3 == 80 || position + 3 == 90) | position + 3 > 99) {
+                                            fieldPanelList.get(position).setColorRed();
+                                            fieldPanelList.get(position + 1).setColorRed();
+                                            fieldPanelList.get(position + 2).setColorRed();
+                                            fieldPanelList.get(position + 3).setColorRed();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

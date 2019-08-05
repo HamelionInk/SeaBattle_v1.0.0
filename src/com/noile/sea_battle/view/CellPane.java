@@ -26,6 +26,8 @@ public class CellPane extends JPanel {
         setLayout(new GridBagLayout());
         viewShip.setOpaque(true);
 
+        cell.setColorGreen();
+
         add(viewShip);
 
         addMouseListener(new MouseAdapter() {
@@ -64,6 +66,18 @@ public class CellPane extends JPanel {
 
     public Ships getCellClassShip() {
         return cell.getClassShip();
+    }
+
+    public void setColorRed() {
+        cell.setColorRed();
+    }
+
+    public void setColorGreen() {
+        cell.setColorGreen();
+    }
+
+    public Color getCellColor() {
+        return cell.getColor();
     }
 
     public int getPosition() {
