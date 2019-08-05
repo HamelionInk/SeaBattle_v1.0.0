@@ -2,6 +2,7 @@ package com.noile.sea_battle.view;
 
 import com.noile.sea_battle.logic.Cell;
 import com.noile.sea_battle.logic.PutShip;
+import com.noile.sea_battle.logic.ships.Ships;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,6 +60,10 @@ public class CellPane extends JPanel {
 
     public void setCellClassShip() {
         cell.setClassShip(putShip.getClassShips());
+    }
+
+    public Ships getCellClassShip() {
+        return cell.getClassShip();
     }
 
     public int getPosition() {

@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
     ShipButton cruiser = new ShipButton("Cruiser", putShip);
     ShipButton boat = new ShipButton("Boat", putShip);
 
-    AxisButton axis = new AxisButton("Axis X",putShip);
+    AxisButton axis = new AxisButton("Axis X", putShip);
 
 
     public GamePanel() {
