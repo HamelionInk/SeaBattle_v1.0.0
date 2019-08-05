@@ -359,16 +359,16 @@ public class PutShip {
                     fieldPanelList.get(position).setColorRed();
                 } else {
                     if ((classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
-                            position + 10 > fieldPanelList.size()) {
+                            position + 10 >= fieldPanelList.size()) {
                         fieldPanelList.get(position).setColorRed();
                     } else {
                         if ((classShips.getSize() == 3 | classShips.getSize() == 4) &
-                                position + 20 > fieldPanelList.size()) {
+                                position + 20 >= fieldPanelList.size()) {
                             fieldPanelList.get(position).setColorRed();
                             fieldPanelList.get(position + 10).setColorRed();
                         } else {
                             if (classShips.getSize() == 4 &
-                                    position + 30 > fieldPanelList.size()) {
+                                    position + 30 >= fieldPanelList.size()) {
                                 fieldPanelList.get(position).setColorRed();
                                 fieldPanelList.get(position + 10).setColorRed();
                                 fieldPanelList.get(position + 20).setColorRed();
@@ -381,7 +381,8 @@ public class PutShip {
 
 
         if (axis == 0) {
-            if ((position == 99 || position + 1 == 99 || position + 2 == 99) & classShips.getSize() > 1)  {
+            if (classShips != null) {
+                if ((position == 99 | position + 1 == 99 | position + 2 == 99) & classShips.getSize() >= 2)  {
                     if (position + 1 > 99) {
                         fieldPanelList.get(position).setColorRed();
                     } else {
@@ -398,7 +399,6 @@ public class PutShip {
                         }
                     }
             } else {
-                if (classShips != null) {
                     if ((classShips.getSize() == 2 | classShips.getSize() == 3 | classShips.getSize() == 4) &
                             position + 1 < fieldPanelList.size()) {
                         if ((position + 1 == 10 || position + 1 == 20 || position + 1 == 30 || position + 1 == 40 || position + 1 == 50 || position + 1 == 60 ||
@@ -413,8 +413,7 @@ public class PutShip {
                                     fieldPanelList.get(position + 1).setColorRed();
                                     fieldPanelList.get(position + 2).setColorRed();
                                 } else {
-                                    if (classShips.getSize() == 4 &
-                                            position + 3 < fieldPanelList.size()) {
+                                    if (classShips.getSize() == 4 & position + 3 < fieldPanelList.size()) {
                                         if ((position + 3 == 10 || position + 3 == 20 || position + 3 == 30 || position + 3 == 40 || position + 3 == 50 || position + 3 == 60 ||
                                                 position + 3 == 70 || position + 3 == 80 || position + 3 == 90) | position + 3 > 99) {
                                             fieldPanelList.get(position).setColorRed();
