@@ -1,49 +1,41 @@
 package com.noile.sea_battle.logic;
 
-import com.noile.sea_battle.logic.ships.Ships;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class Cell {
+public class Cell extends KeyAdapter {
+    private ImageIcon texture;
 
-    Ships classShip;
-
-    private String shipLink = "img/Ship/Ship1.png";
-    private Color color;
-
-    ImageIcon shipImage;
+    private int x, y;
 
     public Cell() {
+        texture = new ImageIcon("img/Cell/Sea.png");
+
+        x = 100;
+        y = 100;
+
     }
 
-    public void state() {
-        if (classShip != null) {
-            shipImage = new ImageIcon(shipLink);
-        }
+    public int getX() {
+        return x;
     }
 
-    public void setClassShip(Ships classShip) {
-        this.classShip = classShip;
+    public int getY() {
+        return y;
     }
 
-    public Ships getClassShip() {
-        return classShip;
+    public void update() {
     }
 
-    public ImageIcon getShipImage() {
-        return shipImage;
-    }
-
-    public void setColorRed() {
-        color = Color.RED;
-    }
-
-    public void setColorGreen() {
-        color = Color.GREEN;
-    }
-
-    public Color getColor() {
-        return color;
+    public void render(Graphics2D g2d) {
+        g2d.drawImage(texture.getImage(), getX(), getY(),null);
     }
 }
+
+
+
+
+

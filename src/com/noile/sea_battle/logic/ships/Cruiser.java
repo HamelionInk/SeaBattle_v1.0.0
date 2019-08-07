@@ -6,5 +6,6 @@ public class Cruiser extends Ships {
         setHealPoints(3);
         setSize(3);
 
+
     }
 }
