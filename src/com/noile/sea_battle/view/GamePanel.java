@@ -6,10 +6,7 @@ import com.noile.sea_battle.logic.ships.Ships;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements ActionListener {
@@ -52,6 +49,26 @@ public class GamePanel extends JPanel implements ActionListener {
                     }
                 }
                 count = -1;
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                cruiser.setTest(false);
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                cruiser.mousePressed(e);
+            }
+
+        });
+
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                cruiser.mouseDragged(e);
+                repaint();
             }
         });
     }
