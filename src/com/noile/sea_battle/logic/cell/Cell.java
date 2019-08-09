@@ -15,7 +15,7 @@ public class Cell{
     public Cell(int x, int y) {
 
         texture = new ImageIcon("img/Cell/Sea.png");
-        textureHit = new ImageIcon("img/Cell/Hit.png");
+        textureHit = new ImageIcon("img/Cell/Submarine.png");
 
         enumCell = EnumCell.INITIAL;
 

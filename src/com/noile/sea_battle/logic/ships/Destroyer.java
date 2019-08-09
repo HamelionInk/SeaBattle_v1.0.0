@@ -6,23 +6,36 @@ import java.awt.event.MouseEvent;
 
 public class Destroyer extends Ships {
 
-    public Destroyer() {
+    public Destroyer(int x, int y) {
         setSize(4);
-        setTextureShip(new ImageIcon(""));
+        setTextureShip(new ImageIcon("img/Ship/Destroyer.png"));
+
+        setY(y);
+        setX(x);
     }
 
     @Override
     public void render(Graphics2D g2d) {
+        g2d.drawImage(getImageShip().getImage(), getX(),getY(),null);
+    }
+
+    public void mousePressed(MouseEvent e) {
+        if ( (e.getX() > getX() & e.getX() < getX() + 25) & (e.getY() > getY() & e.getY() < getY() + 100 )) {
+            setTest(true);
+        }
 
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        if( getTest() ) {
+            setX(e.getX());
+            setY(e.getY());
+        }
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-
+    public void mouseReleased(MouseEvent e) {
+        setTest(false);
     }
 }

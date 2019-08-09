@@ -6,8 +6,27 @@ import java.awt.event.MouseEvent;
 
 public abstract class Ships {
     private int size;
-    private ImageIcon textureShip;
     private boolean test;
+
+    private int x,y;
+
+    private ImageIcon textureShip;
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 
     public boolean getTest() {
         return test;
@@ -38,4 +57,6 @@ public abstract class Ships {
     public abstract void mouseDragged(MouseEvent e);
 
     public abstract void mousePressed(MouseEvent e);
+
+    public abstract void mouseReleased(MouseEvent e);
 }

@@ -6,23 +6,12 @@ import java.awt.event.MouseEvent;
 
 public class Cruiser extends Ships {
 
-    private int x,y;
-
-    public Cruiser() {
+    public Cruiser(int x, int y) {
         setSize(3);
         setTextureShip(new ImageIcon("img/Ship/Cruiser.png"));
 
-        x = 50;
-        y = 50;
-
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+       setY(y);
+       setX(x);
     }
 
     @Override
@@ -40,8 +29,13 @@ public class Cruiser extends Ships {
     @Override
     public void mouseDragged(MouseEvent e) {
         if( getTest() ) {
-            x = e.getX();
-            y = e.getY();
+            setX(e.getX());
+            setY(e.getY());
         }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        setTest(false);
     }
 }
