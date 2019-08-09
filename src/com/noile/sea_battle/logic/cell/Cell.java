@@ -4,11 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class Cell extends JPanel{
+public class Cell{
     private ImageIcon texture;
     private ImageIcon textureHit;
 
-    private EnumCell enumCell = EnumCell.INITIAL;
+    private EnumCell enumCell;
 
     private int x, y;
 
@@ -16,6 +16,8 @@ public class Cell extends JPanel{
 
         texture = new ImageIcon("img/Cell/Sea.png");
         textureHit = new ImageIcon("img/Cell/Hit.png");
+
+        enumCell = EnumCell.INITIAL;
 
         this.x = x;
         this.y = y;

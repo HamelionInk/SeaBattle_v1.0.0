@@ -1,6 +1,8 @@
 package com.noile.sea_battle.view;
 
 import com.noile.sea_battle.logic.cell.Cell;
+import com.noile.sea_battle.logic.ships.Cruiser;
+import com.noile.sea_battle.logic.ships.Ships;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,14 +16,13 @@ public class GamePanel extends JPanel implements ActionListener {
 
     ArrayList<ArrayList<Cell>> field;
 
-    private Cell cell;
     private ImageIcon background;
+
+    private Ships cruiser;
 
     private int x,y;
     private int count;
     private int countAction;
-
-
 
     private Timer timer;
 
@@ -38,7 +39,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
         setLayout(null);
 
-        create();
+        createField();
+        createShips();
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -54,7 +56,7 @@ public class GamePanel extends JPanel implements ActionListener {
         });
     }
 
-    public void create() {
+    public void createField() {
         field = new ArrayList<>();
         for ( int i = 0; i < 10; i++) {
             field.add(new ArrayList<>());
@@ -71,6 +73,11 @@ public class GamePanel extends JPanel implements ActionListener {
         count = -1;
     }
 
+    public void createShips() {
+        cruiser = new Cruiser();
+    }
+
+
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -83,7 +90,8 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
         countAction = -1;
-       }
+        cruiser.render(g2d);
+    }
 
     public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < 10; i++) {
