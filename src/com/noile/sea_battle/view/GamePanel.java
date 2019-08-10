@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements ActionListener {
 
-    private ArrayList<ArrayList<Cell>> field;
-    private ArrayList<ArrayList<Cell>> enemyField;
+    private ArrayList<ArrayList<Cell>> field; // Изменить на обычный массив
+    private Cell[][] enemyField;
     private ArrayList<Ships> destroyer;
     private ArrayList<Ships> cruiser;
     private ArrayList<Ships> submarine;
@@ -21,11 +21,12 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private int enemyX,enemyY;
     private int x,y;
+    private int convertMouseX, convertMouseY;
 
     private Timer timer;
 
     public GamePanel() {
-        background = new ImageIcon("img/GamePanelFont.jpg");
+        background = new ImageIcon("img/Font.jpg");
         timer = new Timer(20, this);
 
         enemyX = 50;
@@ -44,13 +45,10 @@ public class GamePanel extends JPanel implements ActionListener {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
-                for (int i = 0; i < 10; i++) {
-                    for (Cell cell : enemyField.get(i)) {
-                        cell.mouseClicked(e);
-                    }
+                convertMouseCoord(e);
+                if((e.getX() > 75 & e.getX() < 325) & (e.getY() > 375 & e.getY() < 625)) {
+                    enemyField[convertMouseX][convertMouseY].mouseClicked();
                 }
-                repaint();
             }
 
             @Override
@@ -102,30 +100,46 @@ public class GamePanel extends JPanel implements ActionListener {
                 for(Ships boat : boat) {
                     boat.mouseDragged(e);
                 }
-                repaint();
             }
         });
     }
 
-    public void createEnemyField() {
-        enemyField = new ArrayList<>();
-        for ( int i = 0; i < 10; i++) {
-            enemyField.add(new ArrayList<>());
-        }
+    public int getConvertMouseX() {
+        return convertMouseX;
+    }
 
-        for ( int i = 0; i < 10; i++) {
+    public int getConvertMouseY() {
+        return convertMouseY;
+    }
+
+    public Cell[][] getEnemyField() {
+        return enemyField;
+    }
+
+    // вынести в другой класс
+    public void convertMouseCoord(MouseEvent e) {
+        convertMouseY = ((e.getX() - 75) / 25);
+        convertMouseX = ((e.getY() - 375) / 25);
+    }
+
+    public void createEnemyField() {
+        enemyField = new Cell[10][10];
+
+        for ( int x = 0; x < 10; x++) {
             enemyY += 25;
             enemyX = 50;
-            for ( int j = 0; j < 10; j++) {
-                enemyField.get(i).add(new Cell(enemyX += 25 , enemyY));
+            for ( int y = 0; y < 10; y++) {
+                enemyField[x][y] = new Cell(enemyX += 25, enemyY,this);
             }
         }
     }
 
     public void paintEnemyField(Graphics2D g2d) {
-        for (int i = 0; i < 10; i++) {
-            for (Cell cell : enemyField.get(i)) {
-                g2d.drawImage(cell.getTexture().getImage(), cell.getX(), cell.getY(),null);
+        for ( int x = 0; x < 10; x++) {
+            enemyY += 25;
+            enemyX = 50;
+            for ( int y = 0; y < 10; y++) {
+                g2d.drawImage(enemyField[x][y].getTexture().getImage(), enemyField[x][y].getX(), enemyField[x][y].getY(), null);
             }
         }
     }
@@ -140,7 +154,7 @@ public class GamePanel extends JPanel implements ActionListener {
             y += 25;
             x = 50;
             for ( int j = 0; j < 10; j++) {
-                field.get(i).add(new Cell(x += 25 , y));
+                field.get(i).add(new Cell(x += 25 , y, this));
             }
         }
     }
@@ -156,31 +170,31 @@ public class GamePanel extends JPanel implements ActionListener {
     public void createShips() {
         //DestroyerAdd
         destroyer = new ArrayList<>();
-        int destroyerPosX = 275;
+        int destroyerPosX = 500;
         int destroyerPosY = 300;
         for( int i = 0; i < 1 ; i++) {
-        destroyer.add(new Destroyer(destroyerPosX += 25, destroyerPosY));
+        destroyer.add(new Destroyer(destroyerPosX += 25, destroyerPosY, this));
         }
         //CruiserAdd
         cruiser = new ArrayList<>();
-        int cruiserPosX = 275;
+        int cruiserPosX = 500;
         int cruiserPosY = 400;
         for( int i = 0; i < 2 ; i++) {
-            cruiser.add(new Cruiser(cruiserPosX += 25, cruiserPosY));
+            cruiser.add(new Cruiser(cruiserPosX += 25, cruiserPosY, this));
         }
         //SubmarineAdd
         submarine = new ArrayList<>();
-        int submarinePosX = 275;
+        int submarinePosX = 500;
         int submarinePosY = 475;
         for( int i = 0; i < 3 ; i++) {
-            submarine.add(new Submarine(submarinePosX += 25, submarinePosY));
+            submarine.add(new Submarine(submarinePosX += 25, submarinePosY, this));
         }
         //BoatAdd
         boat = new ArrayList<>();
-        int boatPosX = 275;
+        int boatPosX = 500;
         int boatPosY = 525;
         for( int i = 0; i < 4 ; i++) {
-            boat.add(new Boat(boatPosX += 25, boatPosY));
+            boat.add(new Boat(boatPosX += 25, boatPosY, this));
         }
 
     }
@@ -211,11 +225,7 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        for (int i = 0; i < 10; i++) {
-            for (Cell cell : enemyField.get(i)) {
-                cell.state();
-            }
-        }
+        enemyField[convertMouseX][convertMouseY].state();
         repaint();
     }
 

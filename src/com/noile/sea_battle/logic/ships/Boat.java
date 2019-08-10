@@ -1,23 +1,36 @@
 package com.noile.sea_battle.logic.ships;
 
+import com.noile.sea_battle.logic.cell.Cell;
+import com.noile.sea_battle.view.GamePanel;
+
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 
 public class Boat extends Ships {
 
-    public Boat(int x, int y) {
+    private GamePanel game;
+    private Cell enemyField[][];
+
+    public Boat(int x, int y, GamePanel game) {
         setSize(1);
         setTextureShip(new ImageIcon("img/Ship/Boat.png"));
 
         setY(y);
         setX(x);
+        setHeigth(25);
+        setWidth(25);
+        setShipPut(false);
+
+        this.game = game;
+
     }
 
     public void mousePressed(MouseEvent e) {
-        if ( (e.getX() > getX() & e.getX() < getX() + 25) & (e.getY() > getY() & e.getY() < getY() + 25 )) {
-            setTest(true);
+        if(getShipPut() == false) {
+            if ((e.getX() > getX() & e.getX() < getX() + 25) & (e.getY() > getY() & e.getY() < getY() + 25)) {
+                setTest(true);
+            }
         }
-
     }
 
     @Override
@@ -25,11 +38,28 @@ public class Boat extends Ships {
         if( getTest() ) {
             setX(e.getX());
             setY(e.getY());
+            if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 375 & e.getY() < 625)) {
+                if ((getX() + getWidth() >= 100 & getX() + getWidth() <= 350) & (getY() + getHeigth() >= 400 & getY() + getHeigth() <= 650)) {
+                    game.convertMouseCoord(e);
+                    enemyField = game.getEnemyField();
+                    setX(enemyField[game.getConvertMouseX()][game.getConvertMouseY()].getX());
+                    setY(enemyField[game.getConvertMouseX()][game.getConvertMouseY()].getY());
+                }
+            }
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if(getTest()) {
+            if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 375 & e.getY() < 625)) {
+                if ((getX() + getWidth() >= 100 & getX() + getWidth() <= 400) & (getY() + getHeigth() >= 400 & getY() + getHeigth() <= 650)) {
+                    enemyField[game.getConvertMouseX()][game.getConvertMouseY()].test();
+                    enemyField[game.getConvertMouseX() + 1][game.getConvertMouseY()].test();
+                    setShipPut(true);
+                }
+            }
+        }
         setTest(false);
     }
 }

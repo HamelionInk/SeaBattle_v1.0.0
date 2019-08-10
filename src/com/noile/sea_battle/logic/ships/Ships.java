@@ -1,16 +1,45 @@
 package com.noile.sea_battle.logic.ships;
 
+import com.noile.sea_battle.view.GamePanel;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public abstract class Ships {
     private int size;
     private boolean test;
+    private boolean shipPut;
 
     private int x,y;
 
+    private int height;
+    private int width;
+
     private ImageIcon textureShip;
+
+    public boolean getShipPut() {
+        return shipPut;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeigth(int heigth) {
+        this.height = heigth;
+    }
+
+    public void setShipPut(boolean shipPut) {
+        this.shipPut = shipPut;
+    }
+
+    public int getHeigth() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
 
     public int getX() {
         return x;

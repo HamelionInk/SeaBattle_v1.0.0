@@ -4,9 +4,10 @@ import com.noile.sea_battle.view.MainFrame;
 
 public class Game {
 
-    MainFrame mainFrame = new MainFrame();
+    MainFrame mainFrame;
 
     public Game() {
+        mainFrame = new MainFrame();
     }
 
     public static void main(String[] args) {
