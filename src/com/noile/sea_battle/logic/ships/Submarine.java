@@ -14,11 +14,6 @@ public class Submarine extends Ships{
         setX(x);
     }
 
-    @Override
-    public void render(Graphics2D g2d) {
-        g2d.drawImage(getImageShip().getImage(), getX(),getY(),null);
-    }
-
     public void mousePressed(MouseEvent e) {
         if ( (e.getX() > getX() & e.getX() < getX() + 25) & (e.getY() > getY() & e.getY() < getY() + 50 )) {
             setTest(true);

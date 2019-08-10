@@ -11,18 +11,16 @@ import java.util.ArrayList;
 public class GamePanel extends JPanel implements ActionListener {
 
     private ArrayList<ArrayList<Cell>> field;
-    private ArrayList<Ships> cruiser;
-    private ArrayList<Ships> boat;
-    private ArrayList<Ships> submarine;
+    private ArrayList<ArrayList<Cell>> enemyField;
     private ArrayList<Ships> destroyer;
-
+    private ArrayList<Ships> cruiser;
+    private ArrayList<Ships> submarine;
+    private ArrayList<Ships> boat;
 
     private ImageIcon background;
 
-
+    private int enemyX,enemyY;
     private int x,y;
-    private int count;
-    private int countAction;
 
     private Timer timer;
 
@@ -30,28 +28,29 @@ public class GamePanel extends JPanel implements ActionListener {
         background = new ImageIcon("img/GamePanelFont.jpg");
         timer = new Timer(20, this);
 
+        enemyX = 50;
+        enemyY = 350;
         x = 50;
         y = 50;
-        count = -1;
-        countAction = -1;
 
         timer.start();
 
         setLayout(null);
 
         createField();
+        createEnemyField();
         createShips();
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
                 for (int i = 0; i < 10; i++) {
-                    count++;
-                    for (Cell cell : field.get(count)) {
+                    for (Cell cell : enemyField.get(i)) {
                         cell.mouseClicked(e);
                     }
                 }
-                count = -1;
+                repaint();
             }
 
             @Override
@@ -68,7 +67,6 @@ public class GamePanel extends JPanel implements ActionListener {
                 for(Ships boat : boat) {
                     boat.mouseReleased(e);
                 }
-
             }
 
             @Override
@@ -109,6 +107,29 @@ public class GamePanel extends JPanel implements ActionListener {
         });
     }
 
+    public void createEnemyField() {
+        enemyField = new ArrayList<>();
+        for ( int i = 0; i < 10; i++) {
+            enemyField.add(new ArrayList<>());
+        }
+
+        for ( int i = 0; i < 10; i++) {
+            enemyY += 25;
+            enemyX = 50;
+            for ( int j = 0; j < 10; j++) {
+                enemyField.get(i).add(new Cell(enemyX += 25 , enemyY));
+            }
+        }
+    }
+
+    public void paintEnemyField(Graphics2D g2d) {
+        for (int i = 0; i < 10; i++) {
+            for (Cell cell : enemyField.get(i)) {
+                g2d.drawImage(cell.getTexture().getImage(), cell.getX(), cell.getY(),null);
+            }
+        }
+    }
+
     public void createField() {
         field = new ArrayList<>();
         for ( int i = 0; i < 10; i++) {
@@ -116,18 +137,24 @@ public class GamePanel extends JPanel implements ActionListener {
         }
 
         for ( int i = 0; i < 10; i++) {
-            count++;
             y += 25;
             x = 50;
             for ( int j = 0; j < 10; j++) {
-                field.get(count).add(new Cell(x += 25 , y));
+                field.get(i).add(new Cell(x += 25 , y));
             }
         }
-        count = -1;
+    }
+
+    public void paintField(Graphics2D g2d) {
+        for (int i = 0; i < 10; i++) {
+            for (Cell cell : field.get(i)) {
+                g2d.drawImage(cell.getTexture().getImage(), cell.getX(), cell.getY(),null);
+            }
+        }
     }
 
     public void createShips() {
-        //Destroyer
+        //DestroyerAdd
         destroyer = new ArrayList<>();
         int destroyerPosX = 275;
         int destroyerPosY = 300;
@@ -159,17 +186,17 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void paintShips(Graphics2D g2d) {
-        for(Ships destroyer : destroyer) {
-            destroyer.render(g2d);
+        for (Ships destroyer : destroyer) {
+            g2d.drawImage(destroyer.getTextureShip().getImage(), destroyer.getX(),destroyer.getY(),null);
         }
-        for(Ships cruiser : cruiser) {
-            cruiser.render(g2d);
+        for (Ships cruiser : cruiser) {
+            g2d.drawImage(cruiser.getTextureShip().getImage(), cruiser.getX(),cruiser.getY(),null);
         }
-        for(Ships submarine : submarine) {
-            submarine.render(g2d);
+        for (Ships submarine : submarine) {
+            g2d.drawImage(submarine.getTextureShip().getImage(), submarine.getX(),submarine.getY(),null);
         }
-        for(Ships boat : boat) {
-            boat.render(g2d);
+        for (Ships boat : boat) {
+            g2d.drawImage(boat.getTextureShip().getImage(), boat.getX(),boat.getY(),null);
         }
     }
 
@@ -178,26 +205,17 @@ public class GamePanel extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(background.getImage(), 0,0, getWidth(), getHeight(), null);
-
-        for (int i = 0; i < 10; i++) {
-            countAction++;
-            for (Cell cell : field.get(countAction)) {
-                cell.render(g2d);
-            }
-        }
-        countAction = -1;
+        paintEnemyField(g2d);
+        paintField(g2d);
         paintShips(g2d);
-        // cruiser.render(g2d);
     }
 
     public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < 10; i++) {
-            countAction++;
-            for (Cell cell : field.get(countAction)) {
+            for (Cell cell : enemyField.get(i)) {
                 cell.state();
             }
         }
-        countAction = -1;
         repaint();
     }
 

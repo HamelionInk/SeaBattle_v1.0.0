@@ -15,13 +15,16 @@ public class Cell{
     public Cell(int x, int y) {
 
         texture = new ImageIcon("img/Cell/Sea.png");
-        textureHit = new ImageIcon("img/Cell/Submarine.png");
+        textureHit = new ImageIcon("img/Cell/Hit.png");
 
         enumCell = EnumCell.INITIAL;
 
         this.x = x;
         this.y = y;
+    }
 
+    public ImageIcon getTexture() {
+        return texture;
     }
 
     public int getX() {
@@ -45,11 +48,8 @@ public class Cell{
     public void mouseClicked(MouseEvent e) {
         if((e.getX() > getX() & e.getX() < getX() + 25) & (e.getY() > getY() & e.getY() < getY() + 25 )) {
             enumCell = EnumCell.HIT;
+            System.out.println("2");
         }
-    }
-
-    public void render(Graphics2D g2d) {
-        g2d.drawImage(texture.getImage(), getX(), getY(),null);
     }
 }
 

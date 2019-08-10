@@ -48,11 +48,9 @@ public abstract class Ships {
         this.textureShip = textureShip;
     }
 
-    public ImageIcon getImageShip() {
+    public ImageIcon getTextureShip() {
         return textureShip;
     }
-
-    public abstract void render(Graphics2D g2d);
 
     public abstract void mouseDragged(MouseEvent e);
 
