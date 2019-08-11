@@ -11,9 +11,18 @@ public class Submarine extends Ships{
     private GamePanel game;
     private Cell enemyField[][];
 
+    private ImageIcon textureShip;
+    private ImageIcon textureShipCantPut;
+
+    private int initX, initY;
+
     public Submarine(int x, int y, GamePanel game) {
+
+        textureShip = new ImageIcon("img/Ship/Submarine.png");
+        textureShipCantPut = new ImageIcon("img/Ship/SubmarineCantPut.png");
+
         setSize(2);
-        setTextureShip(new ImageIcon("img/Ship/Submarine.png"));
+        setTextureShip(textureShip);
 
         setY(y);
         setX(x);
@@ -22,6 +31,8 @@ public class Submarine extends Ships{
         setShipPut(false);
 
         this.game = game;
+        this.initX = x;
+        this.initY = y;
 
     }
 
@@ -44,7 +55,10 @@ public class Submarine extends Ships{
                     enemyField = game.getEnemyField();
                     setX(enemyField[game.getConvertMouseX()][game.getConvertMouseY()].getX());
                     setY(enemyField[game.getConvertMouseX()][game.getConvertMouseY()].getY());
+                    setTextureShip(textureShip);
                 }
+            } else {
+                setTextureShip(textureShipCantPut);
             }
         }
     }
@@ -53,11 +67,16 @@ public class Submarine extends Ships{
     public void mouseReleased(MouseEvent e) {
         if(getTest()) {
             if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 375 & e.getY() < 625)) {
-                if ((getX() + getWidth() >= 100 & getX() + getWidth() <= 400) & (getY() + getHeigth() >= 400 & getY() + getHeigth() <= 650)) {
+                if ((getX() + getWidth() >= 100 & getX() + getWidth() <= 350) & (getY() + getHeigth() >= 400 & getY() + getHeigth() <= 650)) {
                     enemyField[game.getConvertMouseX()][game.getConvertMouseY()].test();
                     enemyField[game.getConvertMouseX() + 1][game.getConvertMouseY()].test();
                     setShipPut(true);
                 }
+            }
+            else {
+                setX(initX);
+                setY(initY);
+                setTextureShip(textureShip);
             }
         }
         setTest(false);

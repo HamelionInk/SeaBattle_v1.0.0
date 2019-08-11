@@ -225,7 +225,9 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        enemyField[convertMouseX][convertMouseY].state();
+        //if ( convertMouseX <= enemyField.length & convertMouseY >= enemyField.length) {
+        //    enemyField[convertMouseX][convertMouseY].state();
+        //}
         repaint();
     }
 

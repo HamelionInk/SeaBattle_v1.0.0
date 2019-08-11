@@ -67,6 +67,7 @@ public class Cell{
            } else {
                enumCell = EnumCell.MISS;
            }
+           state();
        }
 }
 
