@@ -8,20 +8,19 @@ import java.awt.event.MouseEvent;
 
 public class Cruiser extends Ships {
 
-    private GamePanel game;
-    private Cell enemyField[][];
+    private GamePanel gamePanel;
+    private Cell field[][];
 
     private ImageIcon textureShip;
     private ImageIcon textureShipCantPut;
 
     private int initX, initY;
 
-    public Cruiser(int x, int y, GamePanel game) {
+    public Cruiser(int x, int y, GamePanel gamePanel) {
 
         textureShip = new ImageIcon("img/Ship/Cruiser.png");
         textureShipCantPut = new ImageIcon("img/Ship/CruiserCantPut.png");
 
-        setSize(3);
         setTextureShip(new ImageIcon("img/Ship/Cruiser.png"));
 
         setY(y);
@@ -30,7 +29,7 @@ public class Cruiser extends Ships {
         setWidth(25);
         setShipPut(false);
 
-        this.game = game;
+        this.gamePanel = gamePanel;
         this.initX = x;
         this.initY = y;
 
@@ -38,7 +37,7 @@ public class Cruiser extends Ships {
 
     public void mousePressed(MouseEvent e) {
         if(getShipPut() == false) {
-            if ((e.getX() > getX() & e.getX() < getX() + 25) & (e.getY() > getY() & e.getY() < getY() + 75)) {
+            if ((e.getX() > getX() & e.getX() < getX() + getWidth()) & (e.getY() > getY() & e.getY() < getY() + getHeigth())) {
                 setTest(true);
             }
         }
@@ -49,12 +48,12 @@ public class Cruiser extends Ships {
         if( getTest() ) {
             setX(e.getX());
             setY(e.getY());
-            if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 375 & e.getY() < 625)) {
-                if ((getX() + getWidth() >= 100 & getX() + getWidth() <= 350) & (getY() + getHeigth() >= 400 & getY() + getHeigth() <= 650)) {
-                    game.convertMouseCoord(e);
-                    enemyField = game.getEnemyField();
-                    setX(enemyField[game.getConvertMouseX()][game.getConvertMouseY()].getX());
-                    setY(enemyField[game.getConvertMouseX()][game.getConvertMouseY()].getY());
+            if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 75 & e.getY() < 325)) {
+                if ((getX() + getWidth() >= 100 & getX() + getWidth() <= 350) & (getY() + getHeigth() >= 100 & getY() + getHeigth() <= 350)) {
+                    gamePanel.getGame().convertMouseCordField(e);
+                    field = gamePanel.getField();
+                    setX(field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].getX());
+                    setY(field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].getY());
                     setTextureShip(textureShip);
                 }
             } else {
@@ -66,11 +65,11 @@ public class Cruiser extends Ships {
     @Override
     public void mouseReleased(MouseEvent e) {
         if(getTest()) {
-            if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 375 & e.getY() < 625)) {
-                if ((getX() + getWidth() >= 100 & getX() + getWidth() <= 350) & (getY() + getHeigth() >= 400 & getY() + getHeigth() <= 650)) {
-                    enemyField[game.getConvertMouseX()][game.getConvertMouseY()].test();
-                    enemyField[game.getConvertMouseX() + 1][game.getConvertMouseY()].test();
-                    enemyField[game.getConvertMouseX() + 2][game.getConvertMouseY()].test();
+            if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 75 & e.getY() < 325)) {
+                if ((getX() + getWidth() >= 100 & getX() + getWidth() <= 350) & (getY() + getHeigth() >= 100 & getY() + getHeigth() <= 350)) {
+                    field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip();
+                    field[gamePanel.getGame().getConvertMouseX() + 1][gamePanel.getGame().getConvertMouseY()].checkShip();
+                    field[gamePanel.getGame().getConvertMouseX() + 2][gamePanel.getGame().getConvertMouseY()].checkShip();
                     setShipPut(true);
                 }
             } else {

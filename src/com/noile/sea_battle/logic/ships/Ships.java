@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 
 public abstract class Ships {
-    private int size;
     private boolean test;
     private boolean shipPut;
 
@@ -63,14 +62,6 @@ public abstract class Ships {
 
     public void setTest(boolean test) {
         this.test = test;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public void setTextureShip(ImageIcon textureShip) {

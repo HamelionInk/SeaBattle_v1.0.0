@@ -1,7 +1,9 @@
 package com.noile.sea_battle.view;
 
 import com.noile.sea_battle.logic.cell.Cell;
+import com.noile.sea_battle.logic.game_process.Game;
 import com.noile.sea_battle.logic.ships.*;
+import com.noile.sea_battle.view.button.StageButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements ActionListener {
 
-    private ArrayList<ArrayList<Cell>> field; // Изменить на обычный массив
+    private Cell[][] field;
     private Cell[][] enemyField;
     private ArrayList<Ships> destroyer;
     private ArrayList<Ships> cruiser;
@@ -19,20 +21,24 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private ImageIcon background;
 
+    private StageButton stageButton;
+
+    private Game game;
+
     private int enemyX,enemyY;
-    private int x,y;
-    private int convertMouseX, convertMouseY;
+    private int myX, myY;
 
     private Timer timer;
 
     public GamePanel() {
         background = new ImageIcon("img/Font.jpg");
         timer = new Timer(20, this);
+        game = new Game();
 
         enemyX = 50;
         enemyY = 350;
-        x = 50;
-        y = 50;
+        myX = 50;
+        myY = 50;
 
         timer.start();
 
@@ -41,14 +47,19 @@ public class GamePanel extends JPanel implements ActionListener {
         createField();
         createEnemyField();
         createShips();
+        createButton();
 
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                convertMouseCoord(e);
-                if((e.getX() > 75 & e.getX() < 325) & (e.getY() > 375 & e.getY() < 625)) {
-                    enemyField[convertMouseX][convertMouseY].mouseClicked();
-                }
+            public void mouseClicked(MouseEvent e)
+            { if((e.getX() > 75 & e.getX() < 325) & (e.getY() > 375 & e.getY() < 625)) {
+                game.convertMouseCordEnemyField(e);
+                enemyField[game.getConvertMouseX()][game.getConvertMouseY()].mouseClicked();
+            }
+             // only for test field   if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 75 & e.getY() < 325)) {
+             // only for test field       game.convertMouseCordField(e);
+             // only for test field       field[game.getConvertMouseX()][game.getConvertMouseY()].mouseClicked();
+             // only for test field   }
             }
 
             @Override
@@ -104,22 +115,22 @@ public class GamePanel extends JPanel implements ActionListener {
         });
     }
 
-    public int getConvertMouseX() {
-        return convertMouseX;
-    }
-
-    public int getConvertMouseY() {
-        return convertMouseY;
+    public Game getGame() {
+        return game;
     }
 
     public Cell[][] getEnemyField() {
         return enemyField;
     }
 
-    // вынести в другой класс
-    public void convertMouseCoord(MouseEvent e) {
-        convertMouseY = ((e.getX() - 75) / 25);
-        convertMouseX = ((e.getY() - 375) / 25);
+    public Cell[][] getField() {
+        return field;
+    }
+
+    public void createButton() {
+        stageButton = new StageButton(game);
+        stageButton.setBounds(700,700, 100,25);
+        add(stageButton);
     }
 
     public void createEnemyField() {
@@ -129,15 +140,13 @@ public class GamePanel extends JPanel implements ActionListener {
             enemyY += 25;
             enemyX = 50;
             for ( int y = 0; y < 10; y++) {
-                enemyField[x][y] = new Cell(enemyX += 25, enemyY,this);
+                enemyField[x][y] = new Cell(enemyX += 25, enemyY, game);
             }
         }
     }
 
     public void paintEnemyField(Graphics2D g2d) {
         for ( int x = 0; x < 10; x++) {
-            enemyY += 25;
-            enemyX = 50;
             for ( int y = 0; y < 10; y++) {
                 g2d.drawImage(enemyField[x][y].getTexture().getImage(), enemyField[x][y].getX(), enemyField[x][y].getY(), null);
             }
@@ -145,24 +154,21 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void createField() {
-        field = new ArrayList<>();
-        for ( int i = 0; i < 10; i++) {
-            field.add(new ArrayList<>());
-        }
+        field = new Cell[10][10];
 
-        for ( int i = 0; i < 10; i++) {
-            y += 25;
-            x = 50;
-            for ( int j = 0; j < 10; j++) {
-                field.get(i).add(new Cell(x += 25 , y, this));
+        for ( int x = 0; x < 10; x++) {
+            myY += 25;
+            myX = 50;
+            for ( int y = 0; y < 10; y++) {
+                field[x][y] = new Cell(myX += 25, myY, game);
             }
         }
     }
 
     public void paintField(Graphics2D g2d) {
-        for (int i = 0; i < 10; i++) {
-            for (Cell cell : field.get(i)) {
-                g2d.drawImage(cell.getTexture().getImage(), cell.getX(), cell.getY(),null);
+        for ( int x = 0; x < 10; x++) {
+            for ( int y = 0; y < 10; y++) {
+                g2d.drawImage(field[x][y].getTexture().getImage(), field[x][y].getX(), field[x][y].getY(), null);
             }
         }
     }
@@ -225,9 +231,6 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        //if ( convertMouseX <= enemyField.length & convertMouseY >= enemyField.length) {
-        //    enemyField[convertMouseX][convertMouseY].state();
-        //}
         repaint();
     }
 
