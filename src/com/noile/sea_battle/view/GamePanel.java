@@ -49,6 +49,8 @@ public class GamePanel extends JPanel implements ActionListener {
         createShips();
         createButton();
 
+
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e)

@@ -17,6 +17,7 @@ public class Cell{
 
     private EnumCell enumCell;
     private EnumCellHaveShip enumCellHaveShip;
+    private EnumCheckBlock enumCheckBlock;
 
     private Game game;
 
@@ -32,6 +33,7 @@ public class Cell{
 
         enumCell = EnumCell.INITIAL;
         enumCellHaveShip = EnumCellHaveShip.SEA;
+        enumCheckBlock = EnumCheckBlock.UNBLOCKED;
 
         this.x = x;
         this.y = y;
@@ -54,6 +56,10 @@ public class Cell{
         return y;
     }
 
+    public EnumCheckBlock getEnumCheckBlock() {
+        return enumCheckBlock;
+    }
+
     public void state() {
         switch (enumCell) {
             case HIT:
@@ -69,6 +75,11 @@ public class Cell{
         enumCellHaveShip = EnumCellHaveShip.SHIP;
     }
 
+    public void checkBlock() {
+        enumCheckBlock = EnumCheckBlock.BLOCKED;
+        texture = textureMiss;
+    }
+
     public void mouseClicked() {
         if (game.getGameStage() == EnumGameStage.BATTLE_STAGE) {
             if (enumCellHaveShip == EnumCellHaveShip.SHIP) {
@@ -78,7 +89,8 @@ public class Cell{
             }
         }
            state();
-       }
+    }
+
     public void mouseEntered(MouseEvent e) {
         setTempTexture(texture);
         texture = textureMouseEntered;
