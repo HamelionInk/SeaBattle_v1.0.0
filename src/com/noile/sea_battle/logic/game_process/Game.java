@@ -7,11 +7,13 @@ import java.awt.event.MouseEvent;
 public class Game {
 
     private EnumGameStage gameStage;
+    private EnumAxis enumAxis;
 
     private int convertMouseX, convertMouseY;
 
     public Game() {
         gameStage = EnumGameStage.LOCATION_STAGE;
+        enumAxis = EnumAxis.AXIS_X;
     }
 
     public int getConvertMouseX() {
@@ -26,12 +28,16 @@ public class Game {
         return gameStage;
     }
 
-    public void setGameStage(EnumGameStage gameStage) {
-        this.gameStage = gameStage;
+    public EnumAxis getEnumAxis() {
+        return enumAxis;
     }
 
-    public static void main(String[] args) {
-        new MainFrame();
+    public void setEnumAxis(EnumAxis enumAxis) {
+        this.enumAxis = enumAxis;
+    }
+
+    public void setGameStage(EnumGameStage gameStage) {
+        this.gameStage = gameStage;
     }
 
     public void convertMouseCordEnemyField(MouseEvent e) {
@@ -42,6 +48,10 @@ public class Game {
     public void convertMouseCordField(MouseEvent e) {
         convertMouseY = ((e.getX() - 75) / 25);
         convertMouseX = ((e.getY() - 75) / 25);
+    }
+
+    public static void main(String[] args) {
+        new MainFrame();
     }
 }
 

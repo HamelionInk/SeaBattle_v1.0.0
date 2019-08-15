@@ -3,6 +3,7 @@ package com.noile.sea_battle.view;
 import com.noile.sea_battle.logic.cell.Cell;
 import com.noile.sea_battle.logic.game_process.Game;
 import com.noile.sea_battle.logic.ships.*;
+import com.noile.sea_battle.view.button.AxisButton;
 import com.noile.sea_battle.view.button.StageButton;
 
 import javax.swing.*;
@@ -22,6 +23,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private ImageIcon background;
 
     private StageButton stageButton;
+    private AxisButton axisButton;
 
     private Game game;
 
@@ -58,10 +60,10 @@ public class GamePanel extends JPanel implements ActionListener {
                 game.convertMouseCordEnemyField(e);
                 enemyField[game.getConvertMouseX()][game.getConvertMouseY()].mouseClicked();
             }
-             // only for test field   if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 75 & e.getY() < 325)) {
-             // only for test field       game.convertMouseCordField(e);
-             // only for test field       field[game.getConvertMouseX()][game.getConvertMouseY()].mouseClicked();
-             // only for test field   }
+            if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 75 & e.getY() < 325)) {
+                game.convertMouseCordField(e);
+                field[game.getConvertMouseX()][game.getConvertMouseY()].mouseClicked();
+            }
             }
 
             @Override
@@ -131,8 +133,11 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void createButton() {
         stageButton = new StageButton(game);
+        axisButton = new AxisButton(game);
         stageButton.setBounds(700,700, 100,25);
+        axisButton.setBounds(700,725,100,25);
         add(stageButton);
+        add(axisButton);
     }
 
     public void createEnemyField() {
