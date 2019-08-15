@@ -77,7 +77,6 @@ public class Cell{
 
     public void checkBlock() {
         enumCheckBlock = EnumCheckBlock.BLOCKED;
-        texture = textureMiss;
     }
 
     public void mouseClicked() {

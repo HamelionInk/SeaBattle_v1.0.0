@@ -170,9 +170,9 @@ public class Destroyer extends Ships {
                         checkY();
                         if (check) {
                             field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip();
-                            field[gamePanel.getGame().getConvertMouseX() + 1][gamePanel.getGame().getConvertMouseY()].checkShip();
-                            field[gamePanel.getGame().getConvertMouseX() + 2][gamePanel.getGame().getConvertMouseY()].checkShip();
-                            field[gamePanel.getGame().getConvertMouseX() + 3][gamePanel.getGame().getConvertMouseY()].checkShip();
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 1].checkShip();
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 2].checkShip();
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 3].checkShip();
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 2; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 5; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
@@ -203,7 +203,7 @@ public class Destroyer extends Ships {
 
     public void checkX() {
         for(int i = gamePanel.getGame().getConvertMouseX(); i < gamePanel.getGame().getConvertMouseX() + 4; i++) {
-            for(int j = gamePanel.getGame().getConvertMouseY(); j < gamePanel.getGame().getConvertMouseY() + 2; j++) {
+            for(int j = gamePanel.getGame().getConvertMouseY(); j < gamePanel.getGame().getConvertMouseY() + 1; j++) {
                 if((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
                     if(field[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
                         check = false;
@@ -214,7 +214,7 @@ public class Destroyer extends Ships {
     }
 
     public void checkY() {
-        for(int i = gamePanel.getGame().getConvertMouseX(); i < gamePanel.getGame().getConvertMouseX() + 2; i++) {
+        for(int i = gamePanel.getGame().getConvertMouseX(); i < gamePanel.getGame().getConvertMouseX() + 1; i++) {
             for(int j = gamePanel.getGame().getConvertMouseY(); j < gamePanel.getGame().getConvertMouseY() + 4; j++) {
                 if((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
                     if(field[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {

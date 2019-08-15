@@ -78,17 +78,13 @@ public class Submarine extends Ships{
                             setTextureShip(textureShipX);
                         } else {
                             setTextureShip(textureShipCantPutX);
-                            System.out.println("1");
                         }
                     } else {
                         setTextureShip(textureShipCantPutX);
-                        System.out.println("2");
 
                     }
                 } else {
                     setTextureShip(textureShipCantPutX);
-                    System.out.println("3");
-
                 }
             }
             check = true;
@@ -140,6 +136,7 @@ public class Submarine extends Ships{
                         checkX();
                         if (check) {
                             field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip();
+                            field[gamePanel.getGame().getConvertMouseX() + 1][gamePanel.getGame().getConvertMouseY()].checkShip();
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 3; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 2; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
@@ -176,6 +173,7 @@ public class Submarine extends Ships{
                         checkY();
                         if (check) {
                             field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip();
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 1].checkShip();
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 2; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 3; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {

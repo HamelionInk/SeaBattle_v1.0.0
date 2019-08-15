@@ -1,7 +1,5 @@
 package com.noile.sea_battle.logic.ships;
 
-import com.noile.sea_battle.view.GamePanel;
-
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 

@@ -75,17 +75,13 @@ public class Boat extends Ships {
                             setTextureShip(textureShipX);
                         } else {
                             setTextureShip(textureShipCantPutX);
-                            System.out.println("1");
                         }
                     } else {
                         setTextureShip(textureShipCantPutX);
-                        System.out.println("2");
 
                     }
                 } else {
                     setTextureShip(textureShipCantPutX);
-                    System.out.println("3");
-
                 }
             }
             check = true;
@@ -111,17 +107,12 @@ public class Boat extends Ships {
                             setTextureShip(textureShipY);
                         } else {
                             setTextureShip(textureShipCantPutY);
-                            System.out.println("1");
                         }
                     } else {
                         setTextureShip(textureShipCantPutY);
-                        System.out.println("2");
-
                     }
                 } else {
                     setTextureShip(textureShipCantPutY);
-                    System.out.println("3");
-
                 }
             }
             check = true;
