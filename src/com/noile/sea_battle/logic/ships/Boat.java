@@ -224,26 +224,37 @@ public class Boat extends Ships {
     }
 
     public void locationAI() {
-        boolean checkAI = true;
-        enemyField = gamePanel.getEnemyField();
-        for(int i = getX(); i < getX() + 1; i++) {
-            for(int j = getY(); j < getY() + 1; j++) {
-                if((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
-                    if(enemyField[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
-                        checkAI = false;
-                    }
-                }
-            }
-        }
-        if (checkAI) {
-            for (int i = getX() - 1; i < getX() + 2; i++) {
-                for (int j = getY() - 1; j < getY() + 2; j++) {
+        while (getShipPut() == false) {
+            boolean checkAI = true;
+            enemyField = gamePanel.getEnemyField();
+            for (int i = getX(); i < getX() + 1; i++) {
+                for (int j = getY(); j < getY() + 1; j++) {
                     if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
-                        enemyField[i][j].checkBlock();
+                        if (enemyField[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
+                            checkAI = false;
+                        }
                     }
                 }
             }
-            enemyField[getX()][getY()].checkShip();
+            if (checkAI) {
+                for (int i = getX() - 1; i < getX() + 2; i++) {
+                    for (int j = getY() - 1; j < getY() + 2; j++) {
+                        if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
+                            enemyField[i][j].checkBlock();
+                        }
+                    }
+                }
+                if ((getX() < enemyField.length & getX() >= 0) & (getY() < enemyField.length & getY() >= 0)) {
+                    enemyField[getX()][getY()].checkShip();
+                    setShipPut(true);
+                } else {
+                    setX((int) (Math.random() * 10));
+                    setY((int) (Math.random() * 10));
+                }
+            } else {
+                setX((int) (Math.random() * 10));
+                setY((int) (Math.random() * 10));
+            }
         }
     }
 }

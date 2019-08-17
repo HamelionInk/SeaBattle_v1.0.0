@@ -19,6 +19,7 @@ public class Destroyer extends Ships {
     private ImageIcon textureShipCantPutX;
     private ImageIcon textureShipCantPutY;
 
+    private int axis;
     private int initX, initY;
 
     private boolean check;
@@ -227,30 +228,72 @@ public class Destroyer extends Ships {
     }
 
     public void locationAI() {
-        boolean checkAI = true;
-        enemyField = gamePanel.getEnemyField();
-        for(int i = getX(); i < getX() + 4; i++) {
-            for(int j = getY(); j < getY() + 1; j++) {
-                if((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
-                    if(enemyField[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
-                        checkAI = false;
+        axis = (int) (Math.random() * 2);
+        if(axis == 0) {
+            while (getShipPut() == false) {
+                setX((int) (Math.random() * 5));
+                setY((int) (Math.random() * 10));
+                boolean checkAI = true;
+                enemyField = gamePanel.getEnemyField();
+                for (int i = getX(); i < getX() + 4; i++) {
+                    for (int j = getY(); j < getY() + 1; j++) {
+                        if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
+                            if (enemyField[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
+                                checkAI = false;
+                            }
+                        }
+                    }
+                }
+                if (checkAI) {
+                    for (int i = getX() - 1; i < getX() + 5; i++) {
+                        for (int j = getY() - 1; j < getY() + 2; j++) {
+                            if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
+                                enemyField[i][j].checkBlock();
+                            }
+                        }
+                    }
+                    if ((getX() < enemyField.length & getX() >= 0) & (getY() < enemyField.length & getY() >= 0)) {
+                        enemyField[getX()][getY()].checkShip();
+                        enemyField[getX() + 1][getY()].checkShip();
+                        enemyField[getX() + 2][getY()].checkShip();
+                        enemyField[getX() + 3][getY()].checkShip();
+                        setShipPut(true);
                     }
                 }
             }
         }
-        if (checkAI) {
-            for (int i = getX() - 1; i < getX() + 5; i++) {
-                for (int j = getY() - 1; j < getY() + 2; j++) {
-                    if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
-                        enemyField[i][j].checkBlock();
+        if (axis == 1) {
+            while (getShipPut() == false) {
+                setX((int) (Math.random() * 10));
+                setY((int) (Math.random() * 5));
+                boolean checkAI = true;
+                enemyField = gamePanel.getEnemyField();
+                for (int i = getX(); i < getX() + 1; i++) {
+                    for (int j = getY(); j < getY() + 4; j++) {
+                        if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
+                            if (enemyField[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
+                                checkAI = false;
+                            }
+                        }
+                    }
+                }
+                if (checkAI) {
+                    for (int i = getX() - 1; i < getX() + 2; i++) {
+                        for (int j = getY() - 1; j < getY() + 5; j++) {
+                            if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
+                                enemyField[i][j].checkBlock();
+                            }
+                        }
+                    }
+                    if ((getX() < enemyField.length & getX() >= 0) & (getY() < enemyField.length & getY() >= 0)) {
+                        enemyField[getX()][getY()].checkShip();
+                        enemyField[getX()][getY() + 1].checkShip();
+                        enemyField[getX()][getY() + 2].checkShip();
+                        enemyField[getX()][getY() + 3].checkShip();
+                        setShipPut(true);
                     }
                 }
             }
-            enemyField[getX()][getY()].checkShip();
-            enemyField[getX() + 1][getY()].checkShip();
-            enemyField[getX() + 2][getY()].checkShip();
-            enemyField[getX() + 3][getY()].checkShip();
-
         }
     }
 }

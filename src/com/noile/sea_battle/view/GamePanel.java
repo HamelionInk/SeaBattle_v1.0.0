@@ -55,10 +55,8 @@ public class GamePanel extends JPanel implements ActionListener {
         createField();
         createEnemyField();
         createShips();
-        createButton();
         createAIShips();
-
-
+        createButton();
 
         addMouseListener(new MouseAdapter() {
             @Override
