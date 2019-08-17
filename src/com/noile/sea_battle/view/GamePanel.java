@@ -15,10 +15,16 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private Cell[][] field;
     private Cell[][] enemyField;
+
     private ArrayList<Ships> destroyer;
     private ArrayList<Ships> cruiser;
     private ArrayList<Ships> submarine;
     private ArrayList<Ships> boat;
+
+    private ArrayList<Ships> destroyerAI;
+    private ArrayList<Ships> cruiserAI;
+    private ArrayList<Ships> submarineAI;
+    private ArrayList<Ships> boatAI;
 
     private ImageIcon background;
 
@@ -50,6 +56,7 @@ public class GamePanel extends JPanel implements ActionListener {
         createEnemyField();
         createShips();
         createButton();
+        createAIShips();
 
 
 
@@ -180,13 +187,56 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
+    public void createAIShips() {
+        //DestroyerAdd
+        destroyerAI = new ArrayList<>();
+        for( int i = 0; i < 1 ; i++) {
+            int destroyerPosX = (int) (Math.random() * 5);
+            int destroyerPosY = (int) (Math.random() * 10);
+            destroyerAI.add(new Destroyer(destroyerPosX, destroyerPosY, this));
+        }
+        for(Ships destroyerAI : destroyerAI) {
+            destroyerAI.locationAI();
+        }
+        //CruiserAdd
+        cruiserAI = new ArrayList<>();
+        for( int i = 0; i < 2 ; i++) {
+            int cruiserPosX = (int) (Math.random() * 6);
+            int cruiserPosY = (int) (Math.random() * 10);
+            cruiserAI.add(new Cruiser(cruiserPosX, cruiserPosY, this));
+        }
+        for(Ships cruiserAI : cruiserAI) {
+            cruiserAI.locationAI();
+        }
+        //SubmarineAdd
+        submarineAI = new ArrayList<>();
+        for( int i = 0; i < 3 ; i++) {
+            int submarinePosX = (int) (Math.random() * 7);
+            int submarinePosY = (int) (Math.random() * 10);
+            submarineAI.add(new Submarine(submarinePosX, submarinePosY, this));
+        }
+        for(Ships submarineAI : submarineAI) {
+            submarineAI.locationAI();
+        }
+        //BoatAdd
+        boatAI = new ArrayList<>();
+        for( int i = 0; i < 4 ; i++) {
+            int boatPosX = (int) (Math.random() * 10);
+            int boatPosY = (int) (Math.random() * 10);
+            boatAI.add(new Boat(boatPosX, boatPosY, this));
+        }
+        for(Ships boatAI : boatAI) {
+            boatAI.locationAI();
+        }
+    }
+
     public void createShips() {
         //DestroyerAdd
         destroyer = new ArrayList<>();
         int destroyerPosX = 500;
         int destroyerPosY = 300;
         for( int i = 0; i < 1 ; i++) {
-        destroyer.add(new Destroyer(destroyerPosX += 25, destroyerPosY, this));
+            destroyer.add(new Destroyer(destroyerPosX += 25, destroyerPosY, this));
         }
         //CruiserAdd
         cruiser = new ArrayList<>();
@@ -209,7 +259,6 @@ public class GamePanel extends JPanel implements ActionListener {
         for( int i = 0; i < 4 ; i++) {
             boat.add(new Boat(boatPosX += 25, boatPosY, this));
         }
-
     }
 
     public void paintShips(Graphics2D g2d) {

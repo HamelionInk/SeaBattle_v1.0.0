@@ -75,4 +75,6 @@ public abstract class Ships {
     public abstract void mousePressed(MouseEvent e);
 
     public abstract void mouseReleased(MouseEvent e);
+
+    public abstract void locationAI();
 }

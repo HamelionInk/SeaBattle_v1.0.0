@@ -12,6 +12,7 @@ public class Submarine extends Ships{
 
     private GamePanel gamePanel;
     private Cell field[][];
+    private Cell enemyField[][];
 
     private ImageIcon textureShipX;
     private ImageIcon textureShipY;
@@ -223,6 +224,31 @@ public class Submarine extends Ships{
                     }
                 }
             }
+        }
+    }
+
+    public void locationAI() {
+        boolean checkAI = true;
+        enemyField = gamePanel.getEnemyField();
+        for(int i = getX(); i < getX() + 2; i++) {
+            for(int j = getY(); j < getY() + 1; j++) {
+                if((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
+                    if(enemyField[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
+                        checkAI = false;
+                    }
+                }
+            }
+        }
+        if (checkAI) {
+            for (int i = getX() - 1; i < getX() + 3; i++) {
+                for (int j = getY() - 1; j < getY() + 2; j++) {
+                    if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
+                        enemyField[i][j].checkBlock();
+                    }
+                }
+            }
+            enemyField[getX()][getY()].checkShip();
+            enemyField[getX() + 1][getY()].checkShip();
         }
     }
 }
