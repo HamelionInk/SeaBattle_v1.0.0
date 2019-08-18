@@ -2,6 +2,7 @@ package com.noile.sea_battle.logic.cell;
 
 import com.noile.sea_battle.logic.game_process.EnumGameStage;
 import com.noile.sea_battle.logic.game_process.Game;
+import com.noile.sea_battle.logic.ships.Ships;
 import com.noile.sea_battle.view.GamePanel;
 
 import javax.swing.*;
@@ -16,8 +17,9 @@ public class Cell{
     private ImageIcon tempTexture;
 
     private EnumCell enumCell;
-    private EnumCellHaveShip enumCellHaveShip;
     private EnumCheckBlock enumCheckBlock;
+
+    private Ships ships;
 
     private Game game;
 
@@ -32,7 +34,6 @@ public class Cell{
         texture = textureSea;
 
         enumCell = EnumCell.INITIAL;
-        enumCellHaveShip = EnumCellHaveShip.SEA;
         enumCheckBlock = EnumCheckBlock.UNBLOCKED;
 
         this.x = x;
@@ -71,18 +72,27 @@ public class Cell{
         }
     }
 
-    public void checkShip() {
-        enumCellHaveShip = EnumCellHaveShip.SHIP;
+    public void checkShip(Ships ships) {
+        this.ships = ships;
     }
 
     public void checkBlock() {
         enumCheckBlock = EnumCheckBlock.BLOCKED;
     }
 
+    public void destroyShipArea() {
+        texture = textureMiss;
+    }
+    public void destroyShip() {
+        texture = textureHit;
+    }
+
+
     public void mouseClicked() {
         if (game.getGameStage() == EnumGameStage.BATTLE_STAGE) {
-            if (enumCellHaveShip == EnumCellHaveShip.SHIP) {
+            if (ships != null) {
                 enumCell = EnumCell.HIT;
+                ships.takeDamage();
             } else {
                 enumCell = EnumCell.MISS;
             }

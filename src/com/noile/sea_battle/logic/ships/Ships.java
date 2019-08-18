@@ -7,12 +7,22 @@ public abstract class Ships {
     private boolean test;
     private boolean shipPut;
 
+    private int hp;
+
     private int x,y;
 
     private int height;
     private int width;
 
     private ImageIcon textureShip;
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
 
     public boolean getShipPut() {
         return shipPut;
@@ -70,6 +80,15 @@ public abstract class Ships {
         return textureShip;
     }
 
+    public void takeDamage() {
+        hp = hp - 1;
+        if( hp <= 0) {
+            viewDestroyShip();
+        }
+    }
+
+    public abstract void viewDestroyShip();
+
     public abstract void mouseDragged(MouseEvent e);
 
     public abstract void mousePressed(MouseEvent e);
@@ -77,4 +96,6 @@ public abstract class Ships {
     public abstract void mouseReleased(MouseEvent e);
 
     public abstract void locationAI();
+
+    public abstract void viewDestroyShips();
 }

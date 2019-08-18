@@ -8,7 +8,7 @@ import com.noile.sea_battle.view.GamePanel;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 
-public class Submarine extends Ships{
+public class Submarine extends Ships {
 
     private GamePanel gamePanel;
     private Cell field[][];
@@ -18,7 +18,6 @@ public class Submarine extends Ships{
     private ImageIcon textureShipY;
     private ImageIcon textureShipCantPutX;
     private ImageIcon textureShipCantPutY;
-
 
     private boolean check;
 
@@ -34,6 +33,7 @@ public class Submarine extends Ships{
 
         setTextureShip(textureShipX);
 
+        setHp(2);
         setY(y);
         setX(x);
         setHeigth(50);
@@ -55,6 +55,32 @@ public class Submarine extends Ships{
     }
 
 
+    @Override
+    public void viewDestroyShip() {
+        if (axis == 0) {
+            for (int i = getX() - 1; i < getX() + 3; i++) {
+                for (int j = getY() - 1; j < getY() + 2; j++) {
+                    if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
+                        enemyField[i][j].destroyShipArea();
+                        enemyField[getX()][getY()].destroyShip();
+                        enemyField[getX() + 1][getY()].destroyShip();
+                    }
+                }
+            }
+        }
+
+        if (axis == 1) {
+            for (int i = getX() - 1; i < getX() + 2; i++) {
+                for (int j = getY() - 1; j < getY() + 3; j++) {
+                    if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
+                        enemyField[i][j].destroyShipArea();
+                        enemyField[getX()][getY()].destroyShip();
+                        enemyField[getX()][getY() + 1].destroyShip();
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -136,8 +162,8 @@ public class Submarine extends Ships{
                     if ((getX() + getWidth() >= 100 & getX() + getWidth() <= 350) & (getY() + getHeigth() >= 100 & getY() + getHeigth() <= 350)) {
                         checkX();
                         if (check) {
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip();
-                            field[gamePanel.getGame().getConvertMouseX() + 1][gamePanel.getGame().getConvertMouseY()].checkShip();
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip(this);
+                            field[gamePanel.getGame().getConvertMouseX() + 1][gamePanel.getGame().getConvertMouseY()].checkShip(this);
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 3; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 2; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
@@ -173,8 +199,8 @@ public class Submarine extends Ships{
                     if ((getX() + getHeigth() >= 100 & getX() + getHeigth() <= 350) & (getY() + getWidth() >= 100 & getY() + getWidth() <= 350)) {
                         checkY();
                         if (check) {
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip();
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 1].checkShip();
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip(this);
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 1].checkShip(this);
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 2; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 3; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
@@ -254,8 +280,8 @@ public class Submarine extends Ships{
                         }
                     }
                     if ((getX() < enemyField.length & getX() >= 0) & (getY() < enemyField.length & getY() >= 0)) {
-                        enemyField[getX()][getY()].checkShip();
-                        enemyField[getX() + 1][getY()].checkShip();
+                        enemyField[getX()][getY()].checkShip(this);
+                        enemyField[getX() + 1][getY()].checkShip(this);
                         setShipPut(true);
                     }
                 }
@@ -286,12 +312,16 @@ public class Submarine extends Ships{
                         }
                     }
                     if ((getX() < enemyField.length & getX() >= 0) & (getY() < enemyField.length & getY() >= 0)) {
-                        enemyField[getX()][getY()].checkShip();
-                        enemyField[getX()][getY() + 1].checkShip();
+                        enemyField[getX()][getY()].checkShip(this);
+                        enemyField[getX()][getY() + 1].checkShip(this);
                         setShipPut(true);
                     }
                 }
             }
         }
+    }
+
+    public void viewDestroyShips() {
+        System.out.println("work");
     }
 }

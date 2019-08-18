@@ -34,6 +34,7 @@ public class Destroyer extends Ships {
 
         setTextureShip(textureShipX);
 
+        setHp(4);
         setY(y);
         setX(x);
         setHeigth(100);
@@ -51,6 +52,37 @@ public class Destroyer extends Ships {
         if(getShipPut() == false) {
             if ((e.getX() > getX() & e.getX() < getX() + getWidth()) & (e.getY() > getY() & e.getY() < getY() + getHeigth())) {
                 setTest(true);
+            }
+        }
+    }
+
+    @Override
+    public void viewDestroyShip() {
+        if (axis == 0) {
+            for (int i = getX() - 1; i < getX() + 5; i++) {
+                for (int j = getY() - 1; j < getY() + 2; j++) {
+                    if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
+                        enemyField[i][j].destroyShipArea();
+                        enemyField[getX()][getY()].destroyShip();
+                        enemyField[getX() + 1][getY()].destroyShip();
+                        enemyField[getX() + 2][getY()].destroyShip();
+                        enemyField[getX() + 3][getY()].destroyShip();
+                    }
+                }
+            }
+        }
+
+        if (axis == 1) {
+            for (int i = getX() - 1; i < getX() + 2; i++) {
+                for (int j = getY() - 1; j < getY() + 5; j++) {
+                    if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
+                        enemyField[i][j].destroyShipArea();
+                        enemyField[getX()][getY()].destroyShip();
+                        enemyField[getX()][getY() + 1].destroyShip();
+                        enemyField[getX()][getY() + 2].destroyShip();
+                        enemyField[getX()][getY() + 3].destroyShip();
+                    }
+                }
             }
         }
     }
@@ -132,10 +164,10 @@ public class Destroyer extends Ships {
                     if ((getX() + getWidth() >= 75 & getX() + getWidth() <= 325) & (getY() + getHeigth() >= 75 & getY() + getHeigth() <= 325)) {
                         checkX();
                         if (check) {
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip();
-                            field[gamePanel.getGame().getConvertMouseX() + 1][gamePanel.getGame().getConvertMouseY()].checkShip();
-                            field[gamePanel.getGame().getConvertMouseX() + 2][gamePanel.getGame().getConvertMouseY()].checkShip();
-                            field[gamePanel.getGame().getConvertMouseX() + 3][gamePanel.getGame().getConvertMouseY()].checkShip();
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip(this);
+                            field[gamePanel.getGame().getConvertMouseX() + 1][gamePanel.getGame().getConvertMouseY()].checkShip(this);
+                            field[gamePanel.getGame().getConvertMouseX() + 2][gamePanel.getGame().getConvertMouseY()].checkShip(this);
+                            field[gamePanel.getGame().getConvertMouseX() + 3][gamePanel.getGame().getConvertMouseY()].checkShip(this);
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 5; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 2; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
@@ -171,10 +203,10 @@ public class Destroyer extends Ships {
                     if ((getX() + getHeigth() >= 100 & getX() + getHeigth() <= 350) & (getY() + getWidth() >= 100 & getY() + getWidth() <= 350)) {
                         checkY();
                         if (check) {
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip();
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 1].checkShip();
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 2].checkShip();
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 3].checkShip();
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip(this);
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 1].checkShip(this);
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 2].checkShip(this);
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 3].checkShip(this);
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 2; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 5; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
@@ -253,10 +285,10 @@ public class Destroyer extends Ships {
                         }
                     }
                     if ((getX() < enemyField.length & getX() >= 0) & (getY() < enemyField.length & getY() >= 0)) {
-                        enemyField[getX()][getY()].checkShip();
-                        enemyField[getX() + 1][getY()].checkShip();
-                        enemyField[getX() + 2][getY()].checkShip();
-                        enemyField[getX() + 3][getY()].checkShip();
+                        enemyField[getX()][getY()].checkShip(this);
+                        enemyField[getX() + 1][getY()].checkShip(this);
+                        enemyField[getX() + 2][getY()].checkShip(this);
+                        enemyField[getX() + 3][getY()].checkShip(this);
                         setShipPut(true);
                     }
                 }
@@ -286,14 +318,19 @@ public class Destroyer extends Ships {
                         }
                     }
                     if ((getX() < enemyField.length & getX() >= 0) & (getY() < enemyField.length & getY() >= 0)) {
-                        enemyField[getX()][getY()].checkShip();
-                        enemyField[getX()][getY() + 1].checkShip();
-                        enemyField[getX()][getY() + 2].checkShip();
-                        enemyField[getX()][getY() + 3].checkShip();
+                        enemyField[getX()][getY()].checkShip(this);
+                        enemyField[getX()][getY() + 1].checkShip(this);
+                        enemyField[getX()][getY() + 2].checkShip(this);
+                        enemyField[getX()][getY() + 3].checkShip(this);
                         setShipPut(true);
                     }
                 }
             }
         }
+    }
+
+    @Override
+    public void viewDestroyShips() {
+
     }
 }

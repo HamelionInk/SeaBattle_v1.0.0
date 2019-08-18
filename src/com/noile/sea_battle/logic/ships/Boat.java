@@ -34,6 +34,7 @@ public class Boat extends Ships {
 
         setTextureShip(new ImageIcon("img/Ship/BoatX.png"));
 
+        setHp(1);
         setY(y);
         setX(x);
         setHeigth(25);
@@ -49,6 +50,19 @@ public class Boat extends Ships {
         if(getShipPut() == false) {
             if ((e.getX() > getX() & e.getX() < getX() + getWidth()) & (e.getY() > getY() & e.getY() < getY() + getHeigth())) {
                 setTest(true);
+            }
+        }
+    }
+
+    @Override
+    public void viewDestroyShip() {
+        for (int i = getX() - 1; i < getX() + 2; i++) {
+            for (int j = getY() - 1; j < getY() + 2; j++) {
+                if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
+                    enemyField[i][j].destroyShipArea();
+                    enemyField[getX()][getY()].destroyShip();
+
+                }
             }
         }
     }
@@ -134,7 +148,7 @@ public class Boat extends Ships {
                     if ((getX() + getWidth() >= 100 & getX() + getWidth() <= 350) & (getY() + getHeigth() >= 100 & getY() + getHeigth() <= 350)) {
                         checkX();
                         if (check) {
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip();
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip(this);
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 2; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 2; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
@@ -170,7 +184,7 @@ public class Boat extends Ships {
                     if ((getX() + getHeigth() >= 100 & getX() + getHeigth() <= 350) & (getY() + getWidth() >= 100 & getY() + getWidth() <= 350)) {
                         checkY();
                         if (check) {
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip();
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip(this);
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 2; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 2; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
@@ -245,7 +259,7 @@ public class Boat extends Ships {
                     }
                 }
                 if ((getX() < enemyField.length & getX() >= 0) & (getY() < enemyField.length & getY() >= 0)) {
-                    enemyField[getX()][getY()].checkShip();
+                    enemyField[getX()][getY()].checkShip(this);
                     setShipPut(true);
                 } else {
                     setX((int) (Math.random() * 10));
@@ -256,5 +270,10 @@ public class Boat extends Ships {
                 setY((int) (Math.random() * 10));
             }
         }
+    }
+
+    @Override
+    public void viewDestroyShips() {
+
     }
 }
