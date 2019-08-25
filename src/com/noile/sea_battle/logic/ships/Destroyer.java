@@ -88,6 +88,11 @@ public class Destroyer extends Ships {
     }
 
     @Override
+    public void viewDestroyShipAI() {
+
+    }
+
+    @Override
     public void mouseDragged(MouseEvent e) {
         draggedX(e);
         draggedY(e);
@@ -164,14 +169,14 @@ public class Destroyer extends Ships {
                     if ((getX() + getWidth() >= 75 & getX() + getWidth() <= 325) & (getY() + getHeigth() >= 75 & getY() + getHeigth() <= 325)) {
                         checkX();
                         if (check) {
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip(this);
-                            field[gamePanel.getGame().getConvertMouseX() + 1][gamePanel.getGame().getConvertMouseY()].checkShip(this);
-                            field[gamePanel.getGame().getConvertMouseX() + 2][gamePanel.getGame().getConvertMouseY()].checkShip(this);
-                            field[gamePanel.getGame().getConvertMouseX() + 3][gamePanel.getGame().getConvertMouseY()].checkShip(this);
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].setShip(this);
+                            field[gamePanel.getGame().getConvertMouseX() + 1][gamePanel.getGame().getConvertMouseY()].setShip(this);
+                            field[gamePanel.getGame().getConvertMouseX() + 2][gamePanel.getGame().getConvertMouseY()].setShip(this);
+                            field[gamePanel.getGame().getConvertMouseX() + 3][gamePanel.getGame().getConvertMouseY()].setShip(this);
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 5; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 2; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
-                                        field[i][j].checkBlock();
+                                        field[i][j].setBlock();
                                     }
                                 }
                             }
@@ -203,14 +208,14 @@ public class Destroyer extends Ships {
                     if ((getX() + getHeigth() >= 100 & getX() + getHeigth() <= 350) & (getY() + getWidth() >= 100 & getY() + getWidth() <= 350)) {
                         checkY();
                         if (check) {
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip(this);
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 1].checkShip(this);
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 2].checkShip(this);
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 3].checkShip(this);
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].setShip(this);
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 1].setShip(this);
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 2].setShip(this);
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY() + 3].setShip(this);
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 2; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 5; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
-                                        field[i][j].checkBlock();
+                                        field[i][j].setBlock();
                                     }
                                 }
                             }
@@ -239,7 +244,7 @@ public class Destroyer extends Ships {
         for(int i = gamePanel.getGame().getConvertMouseX(); i < gamePanel.getGame().getConvertMouseX() + 4; i++) {
             for(int j = gamePanel.getGame().getConvertMouseY(); j < gamePanel.getGame().getConvertMouseY() + 1; j++) {
                 if((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
-                    if(field[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
+                    if(field[i][j].getCheckBlock() == EnumCheckBlock.BLOCKED) {
                         check = false;
                     }
                 }
@@ -251,7 +256,7 @@ public class Destroyer extends Ships {
         for(int i = gamePanel.getGame().getConvertMouseX(); i < gamePanel.getGame().getConvertMouseX() + 1; i++) {
             for(int j = gamePanel.getGame().getConvertMouseY(); j < gamePanel.getGame().getConvertMouseY() + 4; j++) {
                 if((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
-                    if(field[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
+                    if(field[i][j].getCheckBlock() == EnumCheckBlock.BLOCKED) {
                         check = false;
                     }
                 }
@@ -270,7 +275,7 @@ public class Destroyer extends Ships {
                 for (int i = getX(); i < getX() + 4; i++) {
                     for (int j = getY(); j < getY() + 1; j++) {
                         if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
-                            if (enemyField[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
+                            if (enemyField[i][j].getCheckBlock() == EnumCheckBlock.BLOCKED) {
                                 checkAI = false;
                             }
                         }
@@ -280,15 +285,15 @@ public class Destroyer extends Ships {
                     for (int i = getX() - 1; i < getX() + 5; i++) {
                         for (int j = getY() - 1; j < getY() + 2; j++) {
                             if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
-                                enemyField[i][j].checkBlock();
+                                enemyField[i][j].setBlock();
                             }
                         }
                     }
                     if ((getX() < enemyField.length & getX() >= 0) & (getY() < enemyField.length & getY() >= 0)) {
-                        enemyField[getX()][getY()].checkShip(this);
-                        enemyField[getX() + 1][getY()].checkShip(this);
-                        enemyField[getX() + 2][getY()].checkShip(this);
-                        enemyField[getX() + 3][getY()].checkShip(this);
+                        enemyField[getX()][getY()].setShip(this);
+                        enemyField[getX() + 1][getY()].setShip(this);
+                        enemyField[getX() + 2][getY()].setShip(this);
+                        enemyField[getX() + 3][getY()].setShip(this);
                         setShipPut(true);
                     }
                 }
@@ -303,7 +308,7 @@ public class Destroyer extends Ships {
                 for (int i = getX(); i < getX() + 1; i++) {
                     for (int j = getY(); j < getY() + 4; j++) {
                         if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
-                            if (enemyField[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
+                            if (enemyField[i][j].getCheckBlock() == EnumCheckBlock.BLOCKED) {
                                 checkAI = false;
                             }
                         }
@@ -313,15 +318,15 @@ public class Destroyer extends Ships {
                     for (int i = getX() - 1; i < getX() + 2; i++) {
                         for (int j = getY() - 1; j < getY() + 5; j++) {
                             if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
-                                enemyField[i][j].checkBlock();
+                                enemyField[i][j].setBlock();
                             }
                         }
                     }
                     if ((getX() < enemyField.length & getX() >= 0) & (getY() < enemyField.length & getY() >= 0)) {
-                        enemyField[getX()][getY()].checkShip(this);
-                        enemyField[getX()][getY() + 1].checkShip(this);
-                        enemyField[getX()][getY() + 2].checkShip(this);
-                        enemyField[getX()][getY() + 3].checkShip(this);
+                        enemyField[getX()][getY()].setShip(this);
+                        enemyField[getX()][getY() + 1].setShip(this);
+                        enemyField[getX()][getY() + 2].setShip(this);
+                        enemyField[getX()][getY() + 3].setShip(this);
                         setShipPut(true);
                     }
                 }

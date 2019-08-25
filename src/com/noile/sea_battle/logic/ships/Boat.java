@@ -61,10 +61,13 @@ public class Boat extends Ships {
                 if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
                     enemyField[i][j].destroyShipArea();
                     enemyField[getX()][getY()].destroyShip();
-
                 }
             }
         }
+    }
+    
+    @Override
+    public void viewDestroyShipAI() {
     }
 
     @Override
@@ -148,11 +151,11 @@ public class Boat extends Ships {
                     if ((getX() + getWidth() >= 100 & getX() + getWidth() <= 350) & (getY() + getHeigth() >= 100 & getY() + getHeigth() <= 350)) {
                         checkX();
                         if (check) {
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip(this);
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].setShip(this);
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 2; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 2; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
-                                        field[i][j].checkBlock();
+                                        field[i][j].setBlock();
                                     }
                                 }
                             }
@@ -184,11 +187,11 @@ public class Boat extends Ships {
                     if ((getX() + getHeigth() >= 100 & getX() + getHeigth() <= 350) & (getY() + getWidth() >= 100 & getY() + getWidth() <= 350)) {
                         checkY();
                         if (check) {
-                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].checkShip(this);
+                            field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].setShip(this);
                             for (int i = gamePanel.getGame().getConvertMouseX() - 1; i < gamePanel.getGame().getConvertMouseX() + 2; i++) {
                                 for (int j = gamePanel.getGame().getConvertMouseY() - 1; j < gamePanel.getGame().getConvertMouseY() + 2; j++) {
                                     if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
-                                        field[i][j].checkBlock();
+                                        field[i][j].setBlock();
                                     }
                                 }
                             }
@@ -217,7 +220,7 @@ public class Boat extends Ships {
         for(int i = gamePanel.getGame().getConvertMouseX(); i < gamePanel.getGame().getConvertMouseX() + 1; i++) {
             for(int j = gamePanel.getGame().getConvertMouseY(); j < gamePanel.getGame().getConvertMouseY() + 1; j++) {
                 if((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
-                    if(field[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
+                    if(field[i][j].getCheckBlock() == EnumCheckBlock.BLOCKED) {
                         check = false;
                     }
                 }
@@ -229,7 +232,7 @@ public class Boat extends Ships {
         for(int i = gamePanel.getGame().getConvertMouseX(); i < gamePanel.getGame().getConvertMouseX() + 1; i++) {
             for(int j = gamePanel.getGame().getConvertMouseY(); j < gamePanel.getGame().getConvertMouseY() + 1; j++) {
                 if((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
-                    if(field[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
+                    if(field[i][j].getCheckBlock() == EnumCheckBlock.BLOCKED) {
                         check = false;
                     }
                 }
@@ -244,7 +247,7 @@ public class Boat extends Ships {
             for (int i = getX(); i < getX() + 1; i++) {
                 for (int j = getY(); j < getY() + 1; j++) {
                     if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
-                        if (enemyField[i][j].getEnumCheckBlock() == EnumCheckBlock.BLOCKED) {
+                        if (enemyField[i][j].getCheckBlock() == EnumCheckBlock.BLOCKED) {
                             checkAI = false;
                         }
                     }
@@ -254,12 +257,12 @@ public class Boat extends Ships {
                 for (int i = getX() - 1; i < getX() + 2; i++) {
                     for (int j = getY() - 1; j < getY() + 2; j++) {
                         if ((i < enemyField.length & i >= 0) & (j < enemyField.length & j >= 0)) {
-                            enemyField[i][j].checkBlock();
+                            enemyField[i][j].setBlock();
                         }
                     }
                 }
                 if ((getX() < enemyField.length & getX() >= 0) & (getY() < enemyField.length & getY() >= 0)) {
-                    enemyField[getX()][getY()].checkShip(this);
+                    enemyField[getX()][getY()].setShip(this);
                     setShipPut(true);
                 } else {
                     setX((int) (Math.random() * 10));

@@ -25,28 +25,31 @@ public class Cell{
 
     private int x, y;
 
+    private boolean haveHit;
+
     public Cell(int x, int y, Game game) {
 
         textureSea = new ImageIcon("img/Cell/Sea.png");
         textureHit = new ImageIcon("img/Cell/Hit.png");
         textureMiss = new ImageIcon("img/Cell/Miss.png");
-        textureMouseEntered = new ImageIcon("img/Cell/Entered.png");
         texture = textureSea;
 
         enumCell = EnumCell.INITIAL;
         enumCheckBlock = EnumCheckBlock.UNBLOCKED;
+
+        haveHit = false;
 
         this.x = x;
         this.y = y;
         this.game = game;
     }
 
-    public void setTempTexture(ImageIcon tempTexture) {
-        this.tempTexture = tempTexture;
-    }
-
     public ImageIcon getTexture() {
         return texture;
+    }
+
+    public boolean getHaveHit() {
+        return haveHit;
     }
 
     public int getX() {
@@ -57,8 +60,20 @@ public class Cell{
         return y;
     }
 
-    public EnumCheckBlock getEnumCheckBlock() {
+    public EnumCheckBlock getCheckBlock() {
         return enumCheckBlock;
+    }
+
+    public EnumCell getEnumCell() {
+        return enumCell;
+    }
+
+    public void setShip(Ships ships) {
+        this.ships = ships;
+    }
+
+    public void setBlock() {
+        enumCheckBlock = EnumCheckBlock.BLOCKED;
     }
 
     public void state() {
@@ -72,46 +87,29 @@ public class Cell{
         }
     }
 
-    public void checkShip(Ships ships) {
-        this.ships = ships;
-    }
-
-    public void checkBlock() {
-        enumCheckBlock = EnumCheckBlock.BLOCKED;
-    }
-
     public void destroyShipArea() {
         texture = textureMiss;
     }
+
     public void destroyShip() {
         texture = textureHit;
     }
-
 
     public void mouseClicked() {
         if (game.getGameStage() == EnumGameStage.BATTLE_STAGE) {
             if (ships != null) {
                 enumCell = EnumCell.HIT;
-                ships.takeDamage();
+                if(haveHit == false) {
+                    ships.takeDamage();
+                    haveHit = true;
+                }
             } else {
                 enumCell = EnumCell.MISS;
+                haveHit = true;
             }
         }
            state();
     }
-
-    public void mouseEntered(MouseEvent e) {
-        setTempTexture(texture);
-        texture = textureMouseEntered;
-    }
-
-    public void mouseExited(MouseEvent e) {
-        if ((e.getX() > getX() & e.getX() < getX()) & (e.getY() > getY() & e.getY() < getY())) {
-            texture = tempTexture;
-        }
-
-    }
-
 }
 
 

@@ -14,8 +14,8 @@ public class MainFrame extends JFrame {
         setIconImage(new ImageIcon("img/frameIcon.jpg").getImage());
         setSize(1000,1000);
         setVisible(true);
-        //add(aSwitchPanel);
-        add(gamePanel);
+        add(aSwitchPanel);
+        //add(gamePanel);
 
         for (SwitchEnum value : SwitchEnum.values()) {
             aSwitchPanel.add(value.getPanel());

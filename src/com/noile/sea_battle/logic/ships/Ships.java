@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 public abstract class Ships {
     private boolean test;
     private boolean shipPut;
+    private boolean destroy;
 
     private int hp;
 
@@ -15,6 +16,10 @@ public abstract class Ships {
     private int width;
 
     private ImageIcon textureShip;
+
+    public boolean isDestroy() {
+        return destroy;
+    }
 
     public int getHp() {
         return hp;
@@ -84,10 +89,14 @@ public abstract class Ships {
         hp = hp - 1;
         if( hp <= 0) {
             viewDestroyShip();
+            destroy = true;
+            System.out.println("Destroy");
         }
     }
 
     public abstract void viewDestroyShip();
+
+    public abstract void viewDestroyShipAI();
 
     public abstract void mouseDragged(MouseEvent e);
 

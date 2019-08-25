@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public GamePanel() {
         background = new ImageIcon("img/Font.jpg");
         timer = new Timer(20, this);
-        game = new Game();
+        game = new Game(this);
 
         enemyX = 50;
         enemyY = 350;
@@ -60,15 +60,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e)
-            { if((e.getX() > 75 & e.getX() < 325) & (e.getY() > 375 & e.getY() < 625)) {
-                game.convertMouseCordEnemyField(e);
-                enemyField[game.getConvertMouseX()][game.getConvertMouseY()].mouseClicked();
-            }
-            if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 75 & e.getY() < 325)) {
-                game.convertMouseCordField(e);
-                field[game.getConvertMouseX()][game.getConvertMouseY()].mouseClicked();
-            }
+            public void mouseClicked(MouseEvent e) {
+                game.myStep(e);
+                game.enemyStep();
             }
 
             @Override
