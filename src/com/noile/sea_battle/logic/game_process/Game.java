@@ -1,6 +1,7 @@
 package com.noile.sea_battle.logic.game_process;
 
 import com.noile.sea_battle.logic.cell.Cell;
+import com.noile.sea_battle.logic.cell.EnumCell;
 import com.noile.sea_battle.view.GamePanel;
 import com.noile.sea_battle.view.MainFrame;
 
@@ -15,6 +16,8 @@ public class Game {
 
     private int convertMouseX, convertMouseY;
     private int AIX, AIY;
+    private int tempAIX, tempAIY;
+
 
     private Cell field[][];
     private Cell enemyField[][];
@@ -28,6 +31,7 @@ public class Game {
 
         AIX = (int) (Math.random() * 10);
         AIY = (int) (Math.random() * 10);
+
     }
 
     public int getConvertMouseX() {
@@ -58,16 +62,37 @@ public class Game {
         enemyField = gamePanel.getEnemyField();
         if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 375 & e.getY() < 625)) {
             convertMouseCordEnemyField(e);
-            if (enemyField[getConvertMouseX()][getConvertMouseY()].getHaveHit() == false) {
+            if (enemyField[getConvertMouseX()][getConvertMouseY()].getEnumCell() == EnumCell.INITIAL) {
                 enemyField[getConvertMouseX()][getConvertMouseY()].mouseClicked();
             }
         }
     }
 
     public void enemyStep() {
+        boolean check = false;
         field = gamePanel.getField();
-        field[AIX][AIY].mouseClicked();
 
+        while (check == false) {
+            if (field[AIX][AIY].getEnumCell() == EnumCell.MISS || field[AIX][AIY].getEnumCell() == EnumCell.HIT) {
+                AIX = (int) (Math.random() * 10);
+                AIY = (int) (Math.random() * 10);
+                System.out.println("____MISS");
+                System.out.println(AIX);
+                System.out.println(AIY);
+                System.out.println("____MISS");
+            }
+            if(field[AIX][AIY].getEnumCell() == EnumCell.INITIAL) {
+                check = true;
+            }
+        }
+
+        if (field[AIX][AIY].getEnumCell() == EnumCell.INITIAL) {
+            field[AIX][AIY].mouseClicked();
+            System.out.println("____HIT");
+            System.out.println(AIX);
+            System.out.println(AIY);
+            System.out.println("____HIT");
+        }
     }
 
     public void convertMouseCordEnemyField(MouseEvent e) {
