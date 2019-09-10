@@ -2,6 +2,7 @@ package com.noile.sea_battle.logic.game_process;
 
 import com.noile.sea_battle.logic.cell.Cell;
 import com.noile.sea_battle.logic.cell.EnumCell;
+import com.noile.sea_battle.logic.ships.Ships;
 import com.noile.sea_battle.view.GamePanel;
 import com.noile.sea_battle.view.MainFrame;
 
@@ -9,28 +10,29 @@ import java.awt.event.MouseEvent;
 
 public class Game {
 
+    private LogicAI logicAI;
+
     private GamePanel gamePanel;
 
     private EnumGameStage gameStage;
     private EnumAxis enumAxis;
 
     private int convertMouseX, convertMouseY;
-    private int AIX, AIY;
     private int tempAIX, tempAIY;
 
+    private Ships shipTarget = null;
 
-    private Cell field[][];
     private Cell enemyField[][];
 
 
     public Game(GamePanel gamePanel) {
+
+        logicAI = new LogicAI(gamePanel);
+
         gameStage = EnumGameStage.LOCATION_STAGE;
         enumAxis = EnumAxis.AXIS_X;
 
         this.gamePanel = gamePanel;
-
-        AIX = (int) (Math.random() * 10);
-        AIY = (int) (Math.random() * 10);
 
     }
 
@@ -60,39 +62,14 @@ public class Game {
 
     public void myStep(MouseEvent e) {
         enemyField = gamePanel.getEnemyField();
-        if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 375 & e.getY() < 625)) {
-            convertMouseCordEnemyField(e);
-            if (enemyField[getConvertMouseX()][getConvertMouseY()].getEnumCell() == EnumCell.INITIAL) {
-                enemyField[getConvertMouseX()][getConvertMouseY()].mouseClicked();
-            }
+        convertMouseCordEnemyField(e);
+        if (enemyField[getConvertMouseX()][getConvertMouseY()].getEnumCell() == EnumCell.INITIAL) {
+            enemyField[getConvertMouseX()][getConvertMouseY()].mouseClicked();
         }
     }
 
     public void enemyStep() {
-        boolean check = false;
-        field = gamePanel.getField();
-
-        while (check == false) {
-            if (field[AIX][AIY].getEnumCell() == EnumCell.MISS || field[AIX][AIY].getEnumCell() == EnumCell.HIT) {
-                AIX = (int) (Math.random() * 10);
-                AIY = (int) (Math.random() * 10);
-                System.out.println("____MISS");
-                System.out.println(AIX);
-                System.out.println(AIY);
-                System.out.println("____MISS");
-            }
-            if(field[AIX][AIY].getEnumCell() == EnumCell.INITIAL) {
-                check = true;
-            }
-        }
-
-        if (field[AIX][AIY].getEnumCell() == EnumCell.INITIAL) {
-            field[AIX][AIY].mouseClicked();
-            System.out.println("____HIT");
-            System.out.println(AIX);
-            System.out.println(AIY);
-            System.out.println("____HIT");
-        }
+        logicAI.step();
     }
 
     public void convertMouseCordEnemyField(MouseEvent e) {

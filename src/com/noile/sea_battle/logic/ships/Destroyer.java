@@ -89,8 +89,38 @@ public class Destroyer extends Ships {
 
     @Override
     public void viewDestroyShipAI() {
+        int y = (getX() - 75) / 25;
+        int x = (getY() - 75) / 25;
+        if (axis == 0) {
+            for (int i = x - 1; i < x + 5; i++) {
+                for (int j = y - 1; j < y + 2; j++) {
+                    if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
+                        field[i][j].destroyShipArea();
+                        field[x][y].destroyShip();
+                        field[x + 1][y].destroyShip();
+                        field[x + 2][y].destroyShip();
+                        field[x + 3][y].destroyShip();
+                    }
+                }
+            }
+        }
 
+        if (axis == 1) {
+            for (int i = x - 1; i < x + 2; i++) {
+                for (int j = y - 1; j < y + 5; j++) {
+                    if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
+                        field[i][j].destroyShipArea();
+                        field[x][y].destroyShip();
+                        field[x][y + 1].destroyShip();
+                        field[x][y + 2].destroyShip();
+                        field[x][y + 3].destroyShip();
+                    }
+                }
+            }
+        }
     }
+
+
 
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -198,6 +228,7 @@ public class Destroyer extends Ships {
                 }
             }
             setTest(false);
+            axis = 0;
         }
     }
 
@@ -237,6 +268,7 @@ public class Destroyer extends Ships {
                 }
             }
             setTest(false);
+            axis = 1;
         }
     }
 
@@ -332,10 +364,5 @@ public class Destroyer extends Ships {
                 }
             }
         }
-    }
-
-    @Override
-    public void viewDestroyShips() {
-
     }
 }

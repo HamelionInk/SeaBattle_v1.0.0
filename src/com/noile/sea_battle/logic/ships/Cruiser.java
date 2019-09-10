@@ -47,7 +47,7 @@ public class Cruiser extends Ships {
     }
 
     public void mousePressed(MouseEvent e) {
-        if(getShipPut() == false) {
+        if (getShipPut() == false) {
             if ((e.getX() > getX() & e.getX() < getX() + getWidth()) & (e.getY() > getY() & e.getY() < getY() + getHeigth())) {
                 setTest(true);
             }
@@ -87,18 +87,46 @@ public class Cruiser extends Ships {
 
     @Override
     public void viewDestroyShipAI() {
+        int y = (getX() - 75) / 25;
+        int x = (getY() - 75) / 25;
+        if (axis == 0) {
+            for (int i = x - 1; i < x + 4; i++) {
+                for (int j = y - 1; j < y + 2; j++) {
+                    if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
+                        field[i][j].destroyShipArea();
+                        field[x][y].destroyShip();
+                        field[x + 1][y].destroyShip();
+                        field[x + 2][y].destroyShip();
 
+                    }
+                }
+            }
+        }
+
+        if (axis == 1) {
+            for (int i = x - 1; i < x + 2; i++) {
+                for (int j = y - 1; j < y + 4; j++) {
+                    if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
+                        field[i][j].destroyShipArea();
+                        field[x][y].destroyShip();
+                        field[x][y + 1].destroyShip();
+                        field[x][y + 2].destroyShip();
+
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-       draggedX(e);
-       draggedY(e);
+        draggedX(e);
+        draggedY(e);
     }
 
     public void draggedX(MouseEvent e) {
         if (gamePanel.getGame().getEnumAxis() == EnumAxis.AXIS_X) {
-            if( getTest() ) {
+            if (getTest()) {
                 setX(e.getX());
                 setY(e.getY());
                 if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 75 & e.getY() < 325)) {
@@ -106,7 +134,7 @@ public class Cruiser extends Ships {
                         gamePanel.getGame().convertMouseCordField(e);
                         field = gamePanel.getField();
                         checkX();
-                        if(check) {
+                        if (check) {
                             setX(field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].getX());
                             setY(field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].getY());
                             setTextureShip(textureShipX);
@@ -126,7 +154,7 @@ public class Cruiser extends Ships {
 
     public void draggedY(MouseEvent e) {
         if (gamePanel.getGame().getEnumAxis() == EnumAxis.AXIS_Y) {
-            if( getTest() ) {
+            if (getTest()) {
                 setX(e.getX());
                 setY(e.getY());
                 if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 75 & e.getY() < 325)) {
@@ -134,7 +162,7 @@ public class Cruiser extends Ships {
                         gamePanel.getGame().convertMouseCordField(e);
                         field = gamePanel.getField();
                         checkY();
-                        if(check) {
+                        if (check) {
                             setX(field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].getX());
                             setY(field[gamePanel.getGame().getConvertMouseX()][gamePanel.getGame().getConvertMouseY()].getY());
                             setTextureShip(textureShipY);
@@ -193,6 +221,7 @@ public class Cruiser extends Ships {
                 }
             }
             setTest(false);
+            axis = 0;
         }
     }
 
@@ -231,14 +260,15 @@ public class Cruiser extends Ships {
                 }
             }
             setTest(false);
+            axis = 1;
         }
     }
 
     public void checkX() {
-        for(int i = gamePanel.getGame().getConvertMouseX(); i < gamePanel.getGame().getConvertMouseX() + 3; i++) {
-            for(int j = gamePanel.getGame().getConvertMouseY(); j < gamePanel.getGame().getConvertMouseY() + 1; j++) {
-                if((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
-                    if(field[i][j].getCheckBlock() == EnumCheckBlock.BLOCKED) {
+        for (int i = gamePanel.getGame().getConvertMouseX(); i < gamePanel.getGame().getConvertMouseX() + 3; i++) {
+            for (int j = gamePanel.getGame().getConvertMouseY(); j < gamePanel.getGame().getConvertMouseY() + 1; j++) {
+                if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
+                    if (field[i][j].getCheckBlock() == EnumCheckBlock.BLOCKED) {
                         check = false;
                     }
                 }
@@ -247,10 +277,10 @@ public class Cruiser extends Ships {
     }
 
     public void checkY() {
-        for(int i = gamePanel.getGame().getConvertMouseX(); i < gamePanel.getGame().getConvertMouseX() + 1; i++) {
-            for(int j = gamePanel.getGame().getConvertMouseY(); j < gamePanel.getGame().getConvertMouseY() + 3; j++) {
-                if((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
-                    if(field[i][j].getCheckBlock() == EnumCheckBlock.BLOCKED) {
+        for (int i = gamePanel.getGame().getConvertMouseX(); i < gamePanel.getGame().getConvertMouseX() + 1; i++) {
+            for (int j = gamePanel.getGame().getConvertMouseY(); j < gamePanel.getGame().getConvertMouseY() + 3; j++) {
+                if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
+                    if (field[i][j].getCheckBlock() == EnumCheckBlock.BLOCKED) {
                         check = false;
                     }
                 }
@@ -324,9 +354,5 @@ public class Cruiser extends Ships {
                 }
             }
         }
-    }
-    @Override
-    public void viewDestroyShips() {
-
     }
 }

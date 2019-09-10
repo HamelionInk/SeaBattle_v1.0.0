@@ -13,8 +13,6 @@ public class Cell{
     private ImageIcon textureSea;
     private ImageIcon textureHit;
     private ImageIcon textureMiss;
-    private ImageIcon textureMouseEntered;
-    private ImageIcon tempTexture;
 
     private EnumCell enumCell;
     private EnumCheckBlock enumCheckBlock;
@@ -68,6 +66,10 @@ public class Cell{
         return enumCell;
     }
 
+    public Ships getShips() {
+        return ships;
+    }
+
     public void setShip(Ships ships) {
         this.ships = ships;
     }
@@ -101,7 +103,6 @@ public class Cell{
                 enumCell = EnumCell.HIT;
                 if(haveHit == false) {
                     ships.takeDamage();
-                    haveHit = true;
                 }
             } else {
                 enumCell = EnumCell.MISS;
@@ -109,6 +110,21 @@ public class Cell{
             }
         }
            state();
+    }
+
+    public void EnemyMouseClicked() {
+        if (game.getGameStage() == EnumGameStage.BATTLE_STAGE) {
+            if (ships != null) {
+                enumCell = EnumCell.HIT;
+                if(haveHit == false) {
+                    ships.EnemyTakeDamage();
+                }
+            } else {
+                enumCell = EnumCell.MISS;
+                haveHit = true;
+            }
+        }
+        state();
     }
 }
 

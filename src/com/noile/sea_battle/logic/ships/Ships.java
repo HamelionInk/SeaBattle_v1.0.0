@@ -94,6 +94,15 @@ public abstract class Ships {
         }
     }
 
+    public void EnemyTakeDamage() {
+        hp = hp - 1;
+        if( hp <= 0) {
+            viewDestroyShipAI();
+            destroy = true;
+            System.out.println("Destroy");
+        }
+    }
+
     public abstract void viewDestroyShip();
 
     public abstract void viewDestroyShipAI();
@@ -106,5 +115,4 @@ public abstract class Ships {
 
     public abstract void locationAI();
 
-    public abstract void viewDestroyShips();
 }

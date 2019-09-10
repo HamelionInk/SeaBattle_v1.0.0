@@ -84,7 +84,31 @@ public class Submarine extends Ships {
 
     @Override
     public void viewDestroyShipAI() {
+        int y = (getX() - 75) / 25;
+        int x = (getY() - 75) / 25;
+        if (axis == 0) {
+            for (int i = x - 1; i < x + 3; i++) {
+                for (int j = y - 1; j < y + 2; j++) {
+                    if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
+                        field[i][j].destroyShipArea();
+                        field[x][y].destroyShip();
+                        field[x + 1][y].destroyShip();
+                    }
+                }
+            }
+        }
 
+        if (axis == 1) {
+            for (int i = x - 1; i < x + 2; i++) {
+                for (int j = y - 1; j < y + 3; j++) {
+                    if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
+                        field[i][j].destroyShipArea();
+                        field[x][y].destroyShip();
+                        field[x][y + 1].destroyShip();
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -194,6 +218,7 @@ public class Submarine extends Ships {
                 }
             }
             setTest(false);
+            axis = 0;
         }
     }
 
@@ -231,6 +256,7 @@ public class Submarine extends Ships {
                 }
             }
             setTest(false);
+            axis = 1;
         }
     }
 
@@ -324,9 +350,5 @@ public class Submarine extends Ships {
                 }
             }
         }
-    }
-
-    public void viewDestroyShips() {
-        System.out.println("work");
     }
 }

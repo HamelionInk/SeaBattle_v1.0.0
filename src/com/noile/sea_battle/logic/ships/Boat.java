@@ -68,6 +68,16 @@ public class Boat extends Ships {
     
     @Override
     public void viewDestroyShipAI() {
+        int y = (getX() - 75) / 25;
+        int x = (getY() - 75) / 25;
+        for (int i = x - 1; i < x + 2; i++) {
+            for (int j = y - 1; j < y + 2; j++) {
+                if ((i < field.length & i >= 0) & (j < field.length & j >= 0)) {
+                   field[i][j].destroyShipArea();
+                   field[x][y].destroyShip();
+                }
+            }
+        }
     }
 
     @Override
@@ -273,10 +283,5 @@ public class Boat extends Ships {
                 setY((int) (Math.random() * 10));
             }
         }
-    }
-
-    @Override
-    public void viewDestroyShips() {
-
     }
 }
