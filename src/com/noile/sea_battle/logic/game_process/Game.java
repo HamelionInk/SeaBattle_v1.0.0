@@ -18,22 +18,14 @@ public class Game {
     private EnumAxis enumAxis;
 
     private int convertMouseX, convertMouseY;
-    private int tempAIX, tempAIY;
-
-    private Ships shipTarget = null;
-
-    private Cell enemyField[][];
-
 
     public Game(GamePanel gamePanel) {
-
         logicAI = new LogicAI(gamePanel);
 
         gameStage = EnumGameStage.LOCATION_STAGE;
         enumAxis = EnumAxis.AXIS_X;
 
         this.gamePanel = gamePanel;
-
     }
 
     public int getConvertMouseX() {
@@ -60,16 +52,12 @@ public class Game {
         this.gameStage = gameStage;
     }
 
-    public void myStep(MouseEvent e) {
-        enemyField = gamePanel.getEnemyField();
+    public void step(MouseEvent e) {
         convertMouseCordEnemyField(e);
-        if (enemyField[getConvertMouseX()][getConvertMouseY()].getEnumCell() == EnumCell.INITIAL) {
-            enemyField[getConvertMouseX()][getConvertMouseY()].mouseClicked();
+        if (gamePanel.getEnemyField()[getConvertMouseX()][getConvertMouseY()].getEnumCell() == EnumCell.INITIAL) {
+            gamePanel.getEnemyField()[getConvertMouseX()][getConvertMouseY()].mouseClicked();
+            logicAI.step();
         }
-    }
-
-    public void enemyStep() {
-        logicAI.step();
     }
 
     public void convertMouseCordEnemyField(MouseEvent e) {

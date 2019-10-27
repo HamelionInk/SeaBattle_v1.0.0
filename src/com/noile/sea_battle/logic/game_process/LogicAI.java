@@ -6,22 +6,17 @@ import com.noile.sea_battle.logic.ships.Ships;
 import com.noile.sea_battle.view.GamePanel;
 
 public class LogicAI {
-
     private GamePanel gamePanel;
-
-    private Cell field[][];
 
     private int AIX, AIY;
 
     private Ships shipTarget;
 
-    public void targetOn() {
+    private int count = 0;
 
-    }
 
     public LogicAI(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
-
 
         shipTarget = null;
 
@@ -29,32 +24,73 @@ public class LogicAI {
         AIY = (int) (Math.random() * 10);
     }
 
-    public void targetOff() {
-        while (true) {
-            if (field[AIX][AIY].getEnumCell() == EnumCell.HIT) {
-                shipTarget = field[AIX][AIY].getShips();
+    public void targetOn() {
+        gamePanel.getField()[AIX + 1][AIY].EnemyMouseClicked();
+            if(gamePanel.getField()[AIX + 1][AIY].getEnumCell() == EnumCell.MISS) {
+                gamePanel.getField()[AIX - 1][AIY].EnemyMouseClicked();
+                if(gamePanel.getField()[AIX - 1][AIY].getEnumCell() == EnumCell.MISS) {
+                    if(gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.MISS) {
+
+                    }
+
+                    if(gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.HIT) {
+
+                    }
+                }
+
+                if(gamePanel.getField()[AIX - 1][AIY].getEnumCell() == EnumCell.HIT) {
+                    gamePanel.getField()[AIX - 2][AIY].EnemyMouseClicked();
+
+                    if(gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.MISS) {
+
+                    }
+                }
             }
-            if (field[AIX][AIY].getEnumCell() == EnumCell.MISS) {
+
+            if(gamePanel.getField()[AIX + 1][AIY].getEnumCell() == EnumCell.HIT) {
+                gamePanel.getField()[AIX + 2][AIY].EnemyMouseClicked();
+                if(gamePanel.getField()[AIX + 2][AIY].getEnumCell() == EnumCell.MISS) {
+                    gamePanel.getField()[AIX - 1][AIY].EnemyMouseClicked();
+                    if(gamePanel.getField()[AIX - 1][AIY].getEnumCell() == EnumCell.HIT) {
+                        gamePanel.getField()[AIX - 2][AIY].EnemyMouseClicked();
+
+                    }
+                }
+
+                if(gamePanel.getField()[AIX + 2][AIY].getEnumCell() == EnumCell.HIT) {
+                    gamePanel.getField()[AIX + 3][AIY].EnemyMouseClicked();
+
+                }
+            }
+
+
+            if(shipTarget.isDestroy()) {
+                shipTarget = null;
+                count = 0;
                 AIX = (int) (Math.random() * 10);
                 AIY = (int) (Math.random() * 10);
-                System.out.println("____MISS");
-                System.out.println(AIX);
-                System.out.println(AIY);
-                System.out.println("____MISS");
             }
-            if (field[AIX][AIY].getEnumCell() == EnumCell.INITIAL) {
-                field[AIX][AIY].EnemyMouseClicked();
-                System.out.println("____HIT");
-                System.out.println(AIX);
-                System.out.println(AIY);
-                System.out.println("____HIT");
+    }
+
+    public void targetOff() {
+        while (true) {
+            if (gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.HIT) {
+                shipTarget = gamePanel.getField()[AIX][AIY].getShips();
+                break;
+            }
+            if (gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.MISS) {
+                AIX = (int) (Math.random() * 10);
+                AIY = (int) (Math.random() * 10);
+            }
+            if (gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.INITIAL) {
+                gamePanel.getField()[AIX][AIY].EnemyMouseClicked();
                 break;
             }
         }
     }
 
     public void step() {
-        field = gamePanel.getField();
+        count++;
         if(shipTarget == null) {
             targetOff();
         }

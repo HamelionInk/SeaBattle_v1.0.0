@@ -62,8 +62,7 @@ public class GamePanel extends JPanel implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 375 & e.getY() < 625)) {
-                    game.myStep(e);
-                    game.enemyStep();
+                    game.step(e);
                 }
             }
 
