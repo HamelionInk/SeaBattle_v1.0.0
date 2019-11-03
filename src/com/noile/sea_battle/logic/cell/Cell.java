@@ -118,6 +118,7 @@ public class Cell{
                 enumCell = EnumCell.HIT;
                 if(haveHit == false) {
                     ships.EnemyTakeDamage();
+                    haveHit = true;
                 }
             } else {
                 enumCell = EnumCell.MISS;
