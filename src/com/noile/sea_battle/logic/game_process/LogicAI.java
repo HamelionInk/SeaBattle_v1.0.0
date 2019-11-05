@@ -14,9 +14,9 @@ public class LogicAI {
     private int count = -1;
     private int coordAttack;
 
-    private boolean AXISX = false;
-    private boolean AXISY = false;
     private boolean change = false;
+    private boolean AxisX = false;
+    private boolean AxisY = false;
 
     public LogicAI(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -39,11 +39,11 @@ public class LogicAI {
                     AIX = AIX - 1;
                     spotShot();
                 } else {
-                    if(gamePanel.getField()[AIX][AIY].getShips() != null) {
+                    if(gamePanel.getField()[AIX][AIY].getShips() != null & gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.INITIAL)  {
                         gamePanel.getField()[AIX][AIY].EnemyMouseClicked();
                         change = true;
+                        AxisX = true;
                     }
-                    AIX = AIX - 1;
                 }
                 break;
             case 1:
@@ -52,11 +52,11 @@ public class LogicAI {
                     AIX = AIX + 1;
                     spotShot();
                 } else {
-                    if(gamePanel.getField()[AIX][AIY].getShips() != null) {
+                    if(gamePanel.getField()[AIX][AIY].getShips() != null & gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.INITIAL) {
                         gamePanel.getField()[AIX][AIY].EnemyMouseClicked();
                         change = true;
+                        AxisX = true;
                     }
-                    AIX = AIX + 1;
                 }
                 break;
             case 2:
@@ -65,11 +65,11 @@ public class LogicAI {
                     AIY = AIY - 1;
                     spotShot();
                 } else {
-                    if(gamePanel.getField()[AIX][AIY].getShips() != null) {
+                    if(gamePanel.getField()[AIX][AIY].getShips() != null & gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.INITIAL) {
                         gamePanel.getField()[AIX][AIY].EnemyMouseClicked();
                         change = true;
+                        AxisY = true;
                     }
-                    AIY = AIY - 1;
                 }
                 break;
             case 3:
@@ -78,41 +78,65 @@ public class LogicAI {
                     AIY = AIY + 1;
                     spotShot();
                 } else {
-                    if(gamePanel.getField()[AIX][AIY].getShips() != null) {
+                    if(gamePanel.getField()[AIX][AIY].getShips() != null & gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.INITIAL) {
                         gamePanel.getField()[AIX][AIY].EnemyMouseClicked();
                         change = true;
+                        AxisY = true;
                     }
-                    AIY = AIY + 1;
                 }
                 break;
         }
     }
 
-    public void attackHorizontal() {
-
-    }
-
-    public void attackVertical() {
-
-    }
-
     public void targetOn() {
         spotShot();
-        do {
+        while (change == false) {
             spotShot();
             foundLocationShip();
-        } while (change == false);
+            System.out.println("work");
+        }
 
-        if(AXISX) {
-            attackVertical();
-        }
-        if(AXISY) {
-            attackHorizontal();
-        }
+      //  if (AxisX) {
+//
+      //  }
+      //  if (AxisY) {
+      //     AIY = AIY + 1;
+      //     if(AIY > 0 & AIY < 10) {
+      //         gamePanel.getField()[AIX][AIY].EnemyMouseClicked();
+      //         if(gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.MISS) {
+      //             AIY = AIY - 2;
+      //             if(AIY > 0 & AIY < 10) {
+      //                 gamePanel.getField()[AIX][AIY].EnemyMouseClicked();
+      //                 if(gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.HIT) {
+      //                     AIY = AIY - 1;
+      //                     if(AIY > 0 & AIY < 10) {
+      //                         gamePanel.getField()[AIX][AIY].EnemyMouseClicked();
+      //                     }
+      //                 }
+      //             }
+      //         }
+      //         if(gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.HIT) {
+      //             AIY = AIX + 1;
+      //             if(AIY > 0 & AIY < 10) {
+      //                 gamePanel.getField()[AIX][AIY].EnemyMouseClicked();
+      //                 if (gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.HIT) {
+      //                     AIY = AIX + 1;
+      //                     if (AIY > 0 & AIY < 10) {
+      //                         gamePanel.getField()[AIX][AIY].EnemyMouseClicked();
+      //                     }
+      //                 }
+      //                 if (gamePanel.getField()[AIX][AIY].getEnumCell() == EnumCell.MISS) {
+      //                     AIY = AIX - 2;
+      //                     if (AIY > 0 & AIY < 10) {
+      //                         gamePanel.getField()[AIX][AIY].EnemyMouseClicked();
+      //                     }
+      //                 }
+      //             }
+      //         }
+      //     }
+      //  }
 
         if(shipTarget.isDestroy()) {
-            AXISX = false;
-            AXISY = false;
             change = false;
             shipTarget = null;
             count = -1;
@@ -144,6 +168,7 @@ public class LogicAI {
         }
         if(shipTarget != null) {
             count++;
+            change = false;
             System.out.println(count);
             targetOn();
         }

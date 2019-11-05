@@ -50,6 +50,8 @@ public class Boat extends Ships {
         if(getShipPut() == false) {
             if ((e.getX() > getX() & e.getX() < getX() + getWidth()) & (e.getY() > getY() & e.getY() < getY() + getHeigth())) {
                 setTest(true);
+                System.out.println("true");
+
             }
         }
     }

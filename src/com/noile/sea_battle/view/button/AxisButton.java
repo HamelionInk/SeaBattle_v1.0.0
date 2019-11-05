@@ -18,9 +18,12 @@ public class AxisButton extends JButton {
             public void mouseClicked(MouseEvent e) {
                 if (game.getEnumAxis() == EnumAxis.AXIS_X) {
                     game.setEnumAxis(EnumAxis.AXIS_Y);
+                    System.out.println("Y");
                 } else {
                     if (game.getEnumAxis() == EnumAxis.AXIS_Y) {
                         game.setEnumAxis(EnumAxis.AXIS_X);
+                        System.out.println("X");
+
                     }
                 }
             }

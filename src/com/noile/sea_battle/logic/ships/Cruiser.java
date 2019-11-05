@@ -50,6 +50,8 @@ public class Cruiser extends Ships {
         if (getShipPut() == false) {
             if ((e.getX() > getX() & e.getX() < getX() + getWidth()) & (e.getY() > getY() & e.getY() < getY() + getHeigth())) {
                 setTest(true);
+                System.out.println("true");
+
             }
         }
     }
@@ -189,6 +191,7 @@ public class Cruiser extends Ships {
     public void releasedX(MouseEvent e) {
         if (gamePanel.getGame().getEnumAxis() == EnumAxis.AXIS_X) {
             if (getTest()) {
+                axis = 0;
                 if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 75 & e.getY() < 325)) {
                     if ((getX() + getWidth() >= 100 & getX() + getWidth() <= 350) & (getY() + getHeigth() >= 100 & getY() + getHeigth() <= 350)) {
                         checkX();
@@ -221,13 +224,13 @@ public class Cruiser extends Ships {
                 }
             }
             setTest(false);
-            axis = 0;
         }
     }
 
     public void releasedY(MouseEvent e) {
         if (gamePanel.getGame().getEnumAxis() == EnumAxis.AXIS_Y) {
             if (getTest()) {
+                axis = 1;
                 if ((e.getX() > 75 & e.getX() < 325) & (e.getY() > 75 & e.getY() < 325)) {
                     if ((getX() + getHeigth() >= 100 & getX() + getHeigth() <= 350) & (getY() + getWidth() >= 100 & getY() + getWidth() <= 350)) {
                         checkY();
@@ -260,7 +263,6 @@ public class Cruiser extends Ships {
                 }
             }
             setTest(false);
-            axis = 1;
         }
     }
 
